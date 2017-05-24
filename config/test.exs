@@ -13,7 +13,7 @@ config :logger, level: :warn
 config :ex_oneroster, ExOneroster.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
-  password: "postgres",
+  password: "",
   database: "ex_oneroster_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

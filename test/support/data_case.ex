@@ -22,6 +22,7 @@ defmodule ExOneroster.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import ExOneroster.DataCase
+      import ExOneroster.Factory
     end
   end
 

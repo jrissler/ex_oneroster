@@ -19,8 +19,9 @@ defmodule ExOneroster.Web.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", ExOneroster.Web do
-  #   pipe_through :api
-  # end
+  scope "/ims/oneroster/v1p1", ExOneroster.Web do
+    pipe_through :api
+
+    resources "/orgs", OrgController#, except: [:new, :edit]
+  end
 end
