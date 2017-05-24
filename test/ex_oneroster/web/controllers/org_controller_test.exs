@@ -4,78 +4,70 @@ defmodule ExOneroster.Web.OrgControllerTest do
   alias ExOneroster.Orginizations
   alias ExOneroster.Orginizations.Org
 
-  # @create_attrs %{child: "some child", dateLastModified: ~N[2010-04-17 14:00:00.000000], identifier: "some identifier", metadata: %{}, name: "some name", parent: "some parent", sourceId: "some sourceId", status: "some status", type: "some type"}
-  # @update_attrs %{child: "some updated child", dateLastModified: ~N[2011-05-18 15:01:01.000000], identifier: "some updated identifier", metadata: %{}, name: "some updated name", parent: "some updated parent", sourceId: "some updated sourceId", status: "some updated status", type: "some updated type"}
-  # @invalid_attrs %{child: nil, dateLastModified: nil, identifier: nil, metadata: nil, name: nil, parent: nil, sourceId: nil, status: nil, type: nil}
+  setup %{conn: conn} do
+    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+  end
 
-  # def fixture(:org) do
-  #   {:ok, org} = Orginizations.create_org(@create_attrs)
-  #   org
-  # end
+  test "lists all entries on index", %{conn: conn} do
+    conn = get conn, org_path(conn, :index)
+    assert json_response(conn, 200)["data"] == []
+  end
 
-  # setup %{conn: conn} do
-  #   {:ok, conn: put_req_header(conn, "accept", "application/json")}
-  # end
+  test "creates org and renders org when data is valid", %{conn: conn} do
+    org_params = build(:org)
+    conn = post conn, org_path(conn, :create), org: params_for(:org, dateLastModified: org_params.dateLastModified)
+    assert %{"id" => id} = json_response(conn, 201)["data"]
 
-  # test "lists all entries on index", %{conn: conn} do
-  #   conn = get conn, org_path(conn, :index)
-  #   assert json_response(conn, 200)["data"] == []
-  # end
+    conn = get conn, org_path(conn, :show, id)
+    assert json_response(conn, 200)["data"] == %{
+      "id" => id,
+      "child" => org_params.child,
+      "dateLastModified" => DateTime.to_iso8601(org_params.dateLastModified),
+      "identifier" => org_params.identifier,
+      "metadata" => org_params.metadata,
+      "name" => org_params.name,
+      "parent" => org_params.parent,
+      "sourceId" => org_params.sourceId,
+      "status" => org_params.status,
+      "type" => org_params.type}
+  end
 
-  # test "creates org and renders org when data is valid", %{conn: conn} do
-  #   conn = post conn, org_path(conn, :create), org: @create_attrs
-  #   assert %{"id" => id} = json_response(conn, 201)["data"]
+  test "does not create org and renders errors when data is invalid", %{conn: conn} do
+    conn = post conn, org_path(conn, :create), org: params_for(:org, dateLastModified: nil)
+    assert json_response(conn, 422)["errors"] != %{}
+  end
 
-  #   conn = get conn, org_path(conn, :show, id)
-  #   assert json_response(conn, 200)["data"] == %{
-  #     "id" => id,
-  #     "child" => "some child",
-  #     "dateLastModified" => ~N[2010-04-17 14:00:00.000000],
-  #     "identifier" => "some identifier",
-  #     "metadata" => %{},
-  #     "name" => "some name",
-  #     "parent" => "some parent",
-  #     "sourceId" => "some sourceId",
-  #     "status" => "some status",
-  #     "type" => "some type"}
-  # end
+  test "updates chosen org and renders org when data is valid", %{conn: conn} do
+    org = insert(:org)
+    conn = put conn, org_path(conn, :update, org), org: params_for(:org, name: "Bond... James Bond", dateLastModified: org.dateLastModified)
+    assert %{"id" => id} = json_response(conn, 200)["data"]
 
-  # test "does not create org and renders errors when data is invalid", %{conn: conn} do
-  #   conn = post conn, org_path(conn, :create), org: @invalid_attrs
-  #   assert json_response(conn, 422)["errors"] != %{}
-  # end
+    conn = get conn, org_path(conn, :show, id)
+    assert json_response(conn, 200)["data"] == %{
+      "id" => id,
+      "child" => org.child,
+      "dateLastModified" => DateTime.to_iso8601(org.dateLastModified),
+      "identifier" => org.identifier,
+      "metadata" => org.metadata,
+      "name" => "Bond... James Bond",
+      "parent" => org.parent,
+      "sourceId" => org.sourceId,
+      "status" => org.status,
+      "type" => org.type}
+  end
 
-  # test "updates chosen org and renders org when data is valid", %{conn: conn} do
-  #   %Org{id: id} = org = fixture(:org)
-  #   conn = put conn, org_path(conn, :update, org), org: @update_attrs
-  #   assert %{"id" => ^id} = json_response(conn, 200)["data"]
+  test "does not update chosen org and renders errors when data is invalid", %{conn: conn} do
+    org = insert(:org)
+    conn = put conn, org_path(conn, :update, org), org: params_for(:org, dateLastModified: "not a date")
+    assert json_response(conn, 422)["errors"] != %{}
+  end
 
-  #   conn = get conn, org_path(conn, :show, id)
-  #   assert json_response(conn, 200)["data"] == %{
-  #     "id" => id,
-  #     "child" => "some updated child",
-  #     "dateLastModified" => ~N[2011-05-18 15:01:01.000000],
-  #     "identifier" => "some updated identifier",
-  #     "metadata" => %{},
-  #     "name" => "some updated name",
-  #     "parent" => "some updated parent",
-  #     "sourceId" => "some updated sourceId",
-  #     "status" => "some updated status",
-  #     "type" => "some updated type"}
-  # end
-
-  # test "does not update chosen org and renders errors when data is invalid", %{conn: conn} do
-  #   org = fixture(:org)
-  #   conn = put conn, org_path(conn, :update, org), org: @invalid_attrs
-  #   assert json_response(conn, 422)["errors"] != %{}
-  # end
-
-  # test "deletes chosen org", %{conn: conn} do
-  #   org = fixture(:org)
-  #   conn = delete conn, org_path(conn, :delete, org)
-  #   assert response(conn, 204)
-  #   assert_error_sent 404, fn ->
-  #     get conn, org_path(conn, :show, org)
-  #   end
-  # end
+  test "deletes chosen org", %{conn: conn} do
+    org = insert(:org)
+    conn = delete conn, org_path(conn, :delete, org)
+    assert response(conn, 204)
+    assert_error_sent 404, fn ->
+      get conn, org_path(conn, :show, org)
+    end
+  end
 end

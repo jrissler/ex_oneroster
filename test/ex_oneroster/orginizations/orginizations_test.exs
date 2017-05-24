@@ -6,15 +6,6 @@ defmodule ExOneroster.OrginizationsTest do
   describe "orgs" do
     alias ExOneroster.Orginizations.Org
 
-    def org_fixture(attrs \\ %{}) do
-      {:ok, org} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Orginizations.create_org()
-
-      org
-    end
-
     test "list_orgs/0 returns all orgs" do
       org = insert(:org)
       assert Orginizations.list_orgs() == [org]
@@ -40,40 +31,40 @@ defmodule ExOneroster.OrginizationsTest do
       assert org.type == org_params.type
     end
 
-    # test "create_org/1 with invalid data returns error changeset" do
-    #   assert {:error, %Ecto.Changeset{}} = Orginizations.create_org(@invalid_attrs)
-    # end
+    test "create_org/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Orginizations.create_org(params_for(:org, sourceId: nil))
+    end
 
-    # test "update_org/2 with valid data updates the org" do
-    #   org = org_fixture()
-    #   assert {:ok, org} = Orginizations.update_org(org, @update_attrs)
-    #   assert %Org{} = org
-    #   assert org.child == "some updated child"
-    #   assert org.dateLastModified == ~N[2011-05-18 15:01:01.000000]
-    #   assert org.identifier == "some updated identifier"
-    #   assert org.metadata == %{}
-    #   assert org.name == "some updated name"
-    #   assert org.parent == "some updated parent"
-    #   assert org.sourceId == "some updated sourceId"
-    #   assert org.status == "some updated status"
-    #   assert org.type == "some updated type"
-    # end
+    test "update_org/2 with valid data updates the org" do
+      existing_org = insert(:org)
+      assert {:ok, org} = Orginizations.update_org(existing_org, params_for(:org, sourceId: "Bond..James Bond", dateLastModified: existing_org.dateLastModified))
+      assert %Org{} = org
+      assert org.child == existing_org.child
+      assert org.dateLastModified == existing_org.dateLastModified
+      assert org.identifier == existing_org.identifier
+      assert org.metadata == existing_org.metadata
+      assert org.name == existing_org.name
+      assert org.parent == existing_org.parent
+      assert org.sourceId == "Bond..James Bond"
+      assert org.status == existing_org.status
+      assert org.type == existing_org.type
+    end
 
-    # test "update_org/2 with invalid data returns error changeset" do
-    #   org = org_fixture()
-    #   assert {:error, %Ecto.Changeset{}} = Orginizations.update_org(org, @invalid_attrs)
-    #   assert org == Orginizations.get_org!(org.id)
-    # end
+    test "update_org/2 with invalid data returns error changeset" do
+      org = insert(:org)
+      assert {:error, %Ecto.Changeset{}} = Orginizations.update_org(org, params_for(:org, dateLastModified: "not a date"))
+      assert org == Orginizations.get_org!(org.id)
+    end
 
-    # test "delete_org/1 deletes the org" do
-    #   org = org_fixture()
-    #   assert {:ok, %Org{}} = Orginizations.delete_org(org)
-    #   assert_raise Ecto.NoResultsError, fn -> Orginizations.get_org!(org.id) end
-    # end
+    test "delete_org/1 deletes the org" do
+      org = insert(:org)
+      assert {:ok, %Org{}} = Orginizations.delete_org(org)
+      assert_raise Ecto.NoResultsError, fn -> Orginizations.get_org!(org.id) end
+    end
 
-    # test "change_org/1 returns a org changeset" do
-    #   org = org_fixture()
-    #   assert %Ecto.Changeset{} = Orginizations.change_org(org)
-    # end
+    test "change_org/1 returns a org changeset" do
+      org = insert(:org)
+      assert %Ecto.Changeset{} = Orginizations.change_org(org)
+    end
   end
 end

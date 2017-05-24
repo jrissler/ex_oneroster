@@ -1,0 +1,19 @@
+{
+  "skip_files": [
+    "lib/ex_oneroster/repo.ex",
+    "lib/ex_oneroster/web/channels/user_socket.ex",
+    "lib/ex_oneroster/web/endpoint.ex",
+    "lib/ex_oneroster/web/gettext.ex",
+    "lib/ex_oneroster/web/web.ex",
+    "test/support/channel_case.ex",
+    "test/support/data_case.ex",
+    "lib/ex_oneroster/web/controllers/fallback_controller.ex",
+    "lib/ex_oneroster/web/views/error_helpers.ex",
+    "lib/ex_oneroster/web/views/layout_view.ex",
+    "lib/ex_oneroster/web/views/page_view.ex"
+  ],
+  "coverage_options": {
+    "treat_no_relevant_lines_as_covered": true,
+    "minimum_coverage": 97
+}
+}
