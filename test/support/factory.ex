@@ -44,4 +44,24 @@ defmodule ExOneroster.Factory do
       academic_session_id: 1
     }
   end
+
+  def class_factory do
+    %ExOneroster.Classes.Class{
+      sourcedId: "CLASS123-ABF-0001",
+      status: "active",
+      dateLastModified: DateTime.utc_now,
+      metadata: %{"ncesId" => "CLASS123", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
+      title: "Basic Chemistry",
+      classCode: "Chem101-Mr Rogers",
+      classType: "homeroom",
+      location: "room 19",
+      grades: ["PR", "09", "10"],
+      subjects: ["chemistry", "basic-chemistry", "chemistry-level-one"],
+      course_id: 1,
+      school_id: 1,
+      terms: ["45454353453-ABF-0001", "TERM123-ABF-0001"],
+      subjectCodes: ["CHEM101", "CHE-A", "C-1"],
+      periods: ["1", "3", "5"]
+    }
+  end
 end

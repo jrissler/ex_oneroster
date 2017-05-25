@@ -25,5 +25,6 @@ defmodule ExOneroster.Web.Router do
     resources "/orgs", OrgController, except: [:new, :edit]
     resources "/academicSessions", AcademicSessionController, except: [:new, :edit]
     resources "/courses", CourseController, except: [:new, :edit]
+    resources "/classes", ClassController, except: [:new, :edit]
   end
 end
