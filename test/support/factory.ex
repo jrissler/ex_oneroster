@@ -29,4 +29,19 @@ defmodule ExOneroster.Factory do
       schoolYear: 2019
     }
   end
+
+  def course_factory do
+    %ExOneroster.Courses.Course{
+      sourcedId: "COURSE123-ABF-0001",
+      status: "active",
+      dateLastModified: DateTime.utc_now,
+      metadata: %{"ncesId" => "COURSE123", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
+      title: "2019 Chemistry",
+      courseCode: "CHEM101",
+      grades: ["PR", "09", "10"],
+      subjects: "chemistry",
+      organization_id: 1,
+      academic_session_id: 1
+    }
+  end
 end
