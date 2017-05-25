@@ -2,7 +2,7 @@ defmodule ExOneroster.Repo.Migrations.CreateExOneroster.AcademicSessions.Academi
   use Ecto.Migration
 
   def change do
-    create table(:academic_sessions_academic_sessions) do
+    create table(:academic_sessions) do
       add :sourcedId, :string
       add :status, :string
       add :dateLastModified, :utc_datetime
@@ -16,7 +16,7 @@ defmodule ExOneroster.Repo.Migrations.CreateExOneroster.AcademicSessions.Academi
 
       timestamps()
     end
-    create unique_index(:academic_sessions_academic_sessions, [:sourcedId])
-    create unique_index(:academic_sessions_academic_sessions, [:parent_id])
+    create unique_index(:academic_sessions, [:sourcedId])
+    create unique_index(:academic_sessions, [:parent_id])
   end
 end

@@ -4,7 +4,7 @@ defmodule ExOneroster.Organizations.Org do
   alias ExOneroster.Organizations.Org
 
 
-  schema "organizations_orgs" do
+  schema "organizations" do
     field :dateLastModified, :utc_datetime
     field :identifier, :string
     field :metadata, :map

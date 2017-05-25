@@ -4,7 +4,7 @@ defmodule ExOneroster.AcademicSessions.AcademicSession do
   alias ExOneroster.AcademicSessions.AcademicSession
 
 
-  schema "academic_sessions_academic_sessions" do
+  schema "academic_sessions" do
     field :dateLastModified, :utc_datetime
     field :endDate, :date
     field :metadata, :map
