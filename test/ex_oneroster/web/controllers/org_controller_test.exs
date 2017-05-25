@@ -15,19 +15,19 @@ defmodule ExOneroster.Web.OrgControllerTest do
 
   test "creates org and renders org when data is valid", %{conn: conn} do
     org_params = build(:org)
+
     conn = post conn, org_path(conn, :create), org: params_for(:org, dateLastModified: org_params.dateLastModified)
     assert %{"id" => id} = json_response(conn, 201)["data"]
 
     conn = get conn, org_path(conn, :show, id)
     assert json_response(conn, 200)["data"] == %{
       "id" => id,
-      "child" => org_params.child,
       "dateLastModified" => DateTime.to_iso8601(org_params.dateLastModified),
       "identifier" => org_params.identifier,
       "metadata" => org_params.metadata,
       "name" => org_params.name,
-      "parent" => org_params.parent,
-      "sourceId" => org_params.sourceId,
+      "parent_id" => org_params.parent_id,
+      "sourcedId" => org_params.sourcedId,
       "status" => org_params.status,
       "type" => org_params.type}
   end
@@ -39,19 +39,19 @@ defmodule ExOneroster.Web.OrgControllerTest do
 
   test "updates chosen org and renders org when data is valid", %{conn: conn} do
     org = insert(:org)
+    
     conn = put conn, org_path(conn, :update, org), org: params_for(:org, name: "Bond... James Bond", dateLastModified: org.dateLastModified)
     assert %{"id" => id} = json_response(conn, 200)["data"]
 
     conn = get conn, org_path(conn, :show, id)
     assert json_response(conn, 200)["data"] == %{
       "id" => id,
-      "child" => org.child,
       "dateLastModified" => DateTime.to_iso8601(org.dateLastModified),
       "identifier" => org.identifier,
       "metadata" => org.metadata,
       "name" => "Bond... James Bond",
-      "parent" => org.parent,
-      "sourceId" => org.sourceId,
+      "parent_id" => org.parent_id,
+      "sourcedId" => org.sourcedId,
       "status" => org.status,
       "type" => org.type}
   end

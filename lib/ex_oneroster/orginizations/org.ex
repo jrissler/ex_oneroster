@@ -5,13 +5,12 @@ defmodule ExOneroster.Orginizations.Org do
 
 
   schema "orginizations_orgs" do
-    field :child, :string
     field :dateLastModified, :utc_datetime
     field :identifier, :string
     field :metadata, :map
     field :name, :string
-    field :parent, :string
-    field :sourceId, :string
+    field :parent_id, :integer
+    field :sourcedId, :string
     field :status, :string
     field :type, :string
 
@@ -21,7 +20,7 @@ defmodule ExOneroster.Orginizations.Org do
   @doc false
   def changeset(%Org{} = org, attrs) do
     org
-    |> cast(attrs, [:sourceId, :status, :dateLastModified, :metadata, :name, :type, :identifier, :parent, :child])
-    |> validate_required([:sourceId, :status, :dateLastModified, :metadata, :name, :type, :identifier, :parent, :child])
+    |> cast(attrs, [:sourcedId, :status, :dateLastModified, :metadata, :name, :type, :identifier, :parent_id])
+    |> validate_required([:sourcedId, :status, :dateLastModified, :metadata, :name, :type, :identifier])
   end
 end

@@ -12,14 +12,14 @@ defmodule ExOneroster.Web.OrgView do
 
   def render("org.json", %{org: org}) do
     %{id: org.id,
-      sourceId: org.sourceId,
+      sourcedId: org.sourcedId,
       status: org.status,
       dateLastModified: org.dateLastModified,
       metadata: org.metadata,
       name: org.name,
       type: org.type,
       identifier: org.identifier,
-      parent: org.parent,
-      child: org.child}
+      parent_id: org.parent_id
+    }
   end
 end

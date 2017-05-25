@@ -22,6 +22,7 @@ defmodule ExOneroster.Web.Router do
   scope "/ims/oneroster/v1p1", ExOneroster.Web do
     pipe_through :api
 
-    resources "/orgs", OrgController#, except: [:new, :edit]
+    resources "/orgs", OrgController, except: [:new, :edit]
+    resources "/academicSessions", AcademicSessionController, except: [:new, :edit]
   end
 end
