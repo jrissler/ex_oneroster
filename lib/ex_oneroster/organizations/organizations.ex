@@ -1,12 +1,12 @@
-defmodule ExOneroster.Orginizations do
+defmodule ExOneroster.Organizations do
   @moduledoc """
-  The boundary for the Orginizations system.
+  The boundary for the Organizations system.
   """
 
   import Ecto.Query, warn: false
   alias ExOneroster.Repo
 
-  alias ExOneroster.Orginizations.Org
+  alias ExOneroster.Organizations.Org
 
   @doc """
   Returns the list of orgs.

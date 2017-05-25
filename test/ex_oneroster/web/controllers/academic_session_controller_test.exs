@@ -1,9 +1,6 @@
 defmodule ExOneroster.Web.AcademicSessionControllerTest do
   use ExOneroster.Web.ConnCase
 
-  alias ExOneroster.AcademicSessions
-  alias ExOneroster.AcademicSessions.AcademicSession
-
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
   end

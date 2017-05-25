@@ -3,7 +3,7 @@ defmodule ExOneroster.Factory do
   use ExMachina.Ecto, repo: ExOneroster.Repo
 
   def org_factory do
-    %ExOneroster.Orginizations.Org{
+    %ExOneroster.Organizations.Org{
       dateLastModified: DateTime.utc_now,
       identifier: "IMS-HIGH-341",
       metadata: %{"ncesId" => "8892928234", "classification" => "private", "boarding" => "true", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},

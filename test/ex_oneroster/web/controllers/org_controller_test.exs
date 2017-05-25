@@ -1,9 +1,6 @@
 defmodule ExOneroster.Web.OrgControllerTest do
   use ExOneroster.Web.ConnCase
 
-  alias ExOneroster.Orginizations
-  alias ExOneroster.Orginizations.Org
-
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
   end
@@ -39,7 +36,7 @@ defmodule ExOneroster.Web.OrgControllerTest do
 
   test "updates chosen org and renders org when data is valid", %{conn: conn} do
     org = insert(:org)
-    
+
     conn = put conn, org_path(conn, :update, org), org: params_for(:org, name: "Bond... James Bond", dateLastModified: org.dateLastModified)
     assert %{"id" => id} = json_response(conn, 200)["data"]
 

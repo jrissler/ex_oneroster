@@ -1,10 +1,10 @@
-defmodule ExOneroster.Orginizations.Org do
+defmodule ExOneroster.Organizations.Org do
   use Ecto.Schema
   import Ecto.Changeset
-  alias ExOneroster.Orginizations.Org
+  alias ExOneroster.Organizations.Org
 
 
-  schema "orginizations_orgs" do
+  schema "organizations_orgs" do
     field :dateLastModified, :utc_datetime
     field :identifier, :string
     field :metadata, :map

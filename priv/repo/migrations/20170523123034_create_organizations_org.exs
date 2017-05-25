@@ -1,8 +1,8 @@
-defmodule ExOneroster.Repo.Migrations.CreateExOneroster.Orginizations.Org do
+defmodule ExOneroster.Repo.Migrations.CreateExOneroster.Organizations.Org do
   use Ecto.Migration
 
   def change do
-    create table(:orginizations_orgs) do
+    create table(:organizations_orgs) do
       add :sourcedId, :string
       add :status, :string
       add :dateLastModified, :utc_datetime
@@ -14,7 +14,7 @@ defmodule ExOneroster.Repo.Migrations.CreateExOneroster.Orginizations.Org do
 
       timestamps()
     end
-    create unique_index(:orginizations_orgs, [:sourcedId])
-    create unique_index(:orginizations_orgs, [:parent_id])
+    create unique_index(:organizations_orgs, [:sourcedId])
+    create unique_index(:organizations_orgs, [:parent_id])
   end
 end
