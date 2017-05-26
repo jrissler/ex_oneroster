@@ -17,7 +17,7 @@ defmodule ExOneroster.Factory do
 
   def academic_session_factory do
     %ExOneroster.AcademicSessions.AcademicSession{
-      sourcedId: "45454353453-ABF-0001",
+      sourcedId: "ACASESS123-ABF-0001",
       status: "active",
       dateLastModified: DateTime.utc_now,
       metadata: %{"ncesId" => "45454353453", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
@@ -77,6 +77,24 @@ defmodule ExOneroster.Factory do
       title: "Organic Chemistry",
       vendorId: "012",
       vendorResourceId: "345-67-543"
+    }
+  end
+
+  def lineitem_factory do
+    %ExOneroster.Lineitems.Lineitem{
+      assignDate: DateTime.utc_now,
+      category: "CAT123",
+      class: "CLASS123-ABF-0001",
+      dateLastModified: DateTime.utc_now,
+      description: "Simple addition test",
+      dueDate: DateTime.utc_now,
+      gradingPeriod: "ACASESS123-ABF-0001",
+      metadata: %{"ncesId" => "LI123", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
+      resultValueMax: "10.0",
+      resultValueMin: "0.0",
+      sourcedId: "LI123-ABF-0001",
+      status: "active",
+      title: "Math Test 1"
     }
   end
 end

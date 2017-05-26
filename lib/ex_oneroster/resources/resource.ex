@@ -4,7 +4,7 @@ defmodule ExOneroster.Resources.Resource do
   alias ExOneroster.Resources.Resource
 
 
-  schema "resources_resources" do
+  schema "resources" do
     field :applicationId, :string
     field :dateLastModified, :utc_datetime
     field :importance, :string
