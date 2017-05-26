@@ -32,5 +32,6 @@ defmodule ExOneroster.Web.Router do
     resources "/results", ResultController, except: [:new, :edit]
     resources "/enrollments", EnrollmentController, except: [:new, :edit]
     resources "/users", UserController, except: [:new, :edit]
+    resources "/demographics", DemographicController, except: [:new, :edit]
   end
 end

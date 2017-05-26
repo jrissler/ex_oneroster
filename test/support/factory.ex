@@ -164,4 +164,26 @@ defmodule ExOneroster.Factory do
     }
   end
 
+  def demographic_factory do
+    %ExOneroster.Demographics.Demographic{
+      americanIndianOrAlaskaNative: true,
+      asian: true,
+      birthdate: "1968-04-13",
+      blackOrAfricanAmerican: true,
+      cityOfBirth: "Glencoe",
+      countryOfBirthCode: "GB", # Scotland :)
+      dateLastModified: DateTime.utc_now,
+      demographicRaceTwoOrMoreRaces: true,
+      hispanicOrLatinoEthnicity: true,
+      metadata: %{"ncesId" => "DEM007nces", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
+      nativeHawaiianOrOtherPacificIslander: true,
+      publicSchoolResidenceStatus: "01652",
+      sex: "male",
+      sourcedId: "DEM007",
+      stateOfBirthAbbreviation: nil,
+      status: "active",
+      white: true
+    }
+  end
+
 end
