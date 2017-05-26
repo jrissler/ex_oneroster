@@ -97,4 +97,14 @@ defmodule ExOneroster.Factory do
       title: "Math Test 1"
     }
   end
+
+  def lineitemcategory_factory do
+    %ExOneroster.Lineitemcategories.LineItemCategory{
+      dateLastModified: DateTime.utc_now,
+      metadata: %{"ncesId" => "LICAT123", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
+      sourcedId: "LICAT123-ABF-0001",
+      status: "active",
+      title: "Homework"
+    }
+  end
 end
