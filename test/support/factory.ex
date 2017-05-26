@@ -139,4 +139,29 @@ defmodule ExOneroster.Factory do
     }
   end
 
+  def user_factory do
+    %ExOneroster.Users.User{
+      agents: ["002", "008"],
+      dateLastModified: DateTime.utc_now,
+      email: "007@jamesbond.org",
+      enabledUser: true,
+      familyName: "Bond",
+      givenName: "James",
+      grades: ["PR", "09", "10"],
+      identifier: "007",
+      metadata: %{"ncesId" => "USR007", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
+      middleName: "Herbert",
+      orgs: ["SCH-ABF-0001"],
+      password: "goldeneye",
+      phone: "1-555-cal-bond",
+      role: "guardian",
+      sms: "1-555-cal-bond",
+      sourcedId: "USR007",
+      status: "active",
+      type: "LDAP",
+      userIds: ["james", "bond", "007"],
+      username: "bondj"
+    }
+  end
+
 end
