@@ -9,7 +9,7 @@ defmodule ExOneroster.Factory do
       metadata: %{"ncesId" => "8892928234", "classification" => "private", "boarding" => "true", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
       name: "IMS High",
       parent_id: nil,
-      sourcedId: "9877728989-ABF-0001",
+      sourcedId: "SCH-ABF-0001",
       status: "active",
       type: "national"
     }
@@ -122,4 +122,21 @@ defmodule ExOneroster.Factory do
       student: "STU123"
     }
   end
+
+  def enrollment_factory do
+    %ExOneroster.Enrollments.Enrollment{
+      beginDate: "2017-05-26",
+      class: "CLASS123-ABF-0001",
+      dateLastModified: DateTime.utc_now,
+      endDate: "2019-05-26",
+      metadata: %{"ncesId" => "RES123", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
+      primary: "US234",
+      role: "student",
+      school: "SCH-ABF-0001",
+      sourcedId: "ENR123",
+      status: "active",
+      user: "U123"
+    }
+  end
+
 end
