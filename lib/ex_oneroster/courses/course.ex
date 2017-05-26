@@ -3,7 +3,6 @@ defmodule ExOneroster.Courses.Course do
   import Ecto.Changeset
   alias ExOneroster.Courses.Course
 
-
   schema "courses" do
     field :courseCode, :string
     field :dateLastModified, :utc_datetime

@@ -29,5 +29,6 @@ defmodule ExOneroster.Web.Router do
     resources "/resources", ResourceController, except: [:new, :edit]
     resources "/lineitems", LineitemController, except: [:new, :edit]
     resources "/line_item_categories", LineItemCategoryController, except: [:new, :edit]
+    resources "/results", ResultController, except: [:new, :edit]
   end
 end

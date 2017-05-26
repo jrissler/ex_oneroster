@@ -107,4 +107,19 @@ defmodule ExOneroster.Factory do
       title: "Homework"
     }
   end
+
+  def result_factory do
+    %ExOneroster.Results.Result{
+      comment: "Excellent",
+      dateLastModified: DateTime.utc_now,
+      lineitem: "LI123-ABF-0001",
+      metadata: %{"ncesId" => "RES123", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
+      score: "67.0",
+      scoreDate: "2017-05-26",
+      scoreStatus: "fully graded",
+      sourcedId: "RES123",
+      status: "active",
+      student: "STU123"
+    }
+  end
 end
