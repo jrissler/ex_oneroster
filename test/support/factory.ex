@@ -64,4 +64,19 @@ defmodule ExOneroster.Factory do
       periods: ["1", "3", "5"]
     }
   end
+
+  def resource_factory do
+    %ExOneroster.Resources.Resource{
+      applicationId: "anapp9876",
+      dateLastModified: DateTime.utc_now,
+      importance: "secondary",
+      metadata: %{"ncesId" => "RES123", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
+      roles: ["guardian", "parent", "teacher", "relative", "aide", "administrator"],
+      sourcedId: "RESOURCE123-ABF-0001",
+      status: "active",
+      title: "Organic Chemistry",
+      vendorId: "012",
+      vendorResourceId: "345-67-543"
+    }
+  end
 end
