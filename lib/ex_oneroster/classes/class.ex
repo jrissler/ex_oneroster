@@ -28,6 +28,6 @@ defmodule ExOneroster.Classes.Class do
   def changeset(%Class{} = class, attrs) do
     class
     |> cast(attrs, [:sourcedId, :status, :dateLastModified, :metadata, :title, :classCode, :classType, :location, :grades, :subjects, :course_id, :school_id, :terms, :subjectCodes, :periods])
-    |> validate_required([:sourcedId, :status, :dateLastModified, :metadata, :title, :classCode, :classType, :location, :grades, :subjects, :course_id, :school_id, :terms, :subjectCodes, :periods])
+    |> validate_required([:sourcedId, :status, :dateLastModified, :title, :classType, :grades, :subjects, :course_id, :school_id, :terms, :subjectCodes, :periods])
   end
 end

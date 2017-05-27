@@ -3,6 +3,10 @@ defmodule ExOneroster.Courses.Course do
   import Ecto.Changeset
   alias ExOneroster.Courses.Course
 
+  # belongs_to org
+  # belongs_to academic session
+  # has_many resources
+
   schema "courses" do
     field :courseCode, :string
     field :dateLastModified, :utc_datetime
@@ -22,6 +26,6 @@ defmodule ExOneroster.Courses.Course do
   def changeset(%Course{} = course, attrs) do
     course
     |> cast(attrs, [:sourcedId, :status, :dateLastModified, :metadata, :title, :academic_session_id, :courseCode, :grades, :subjects, :organization_id])
-    |> validate_required([:sourcedId, :status, :dateLastModified, :metadata, :title, :academic_session_id, :courseCode, :grades, :subjects, :organization_id])
+    |> validate_required([:sourcedId, :status, :dateLastModified, :title, :academic_session_id, :courseCode, :grades, :subjects, :organization_id])
   end
 end

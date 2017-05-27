@@ -2,6 +2,16 @@ defmodule ExOneroster.Factory do
   # with Ecto
   use ExMachina.Ecto, repo: ExOneroster.Repo
 
+  # base = base_setup(insert(:org))
+  def base_setup(org) do
+    parent_academic_session = insert(:academic_session, org: org)
+    # 2 children academic sessions
+    insert(:academic_session, org: org, parent: parent_academic_session)
+    insert(:academic_session, org: org, parent: parent_academic_session)
+
+    %{org: org, academic_session: parent_academic_session}
+  end
+
   def org_factory do
     %ExOneroster.Organizations.Org{
       dateLastModified: DateTime.utc_now,
@@ -17,7 +27,7 @@ defmodule ExOneroster.Factory do
 
   def academic_session_factory do
     %ExOneroster.AcademicSessions.AcademicSession{
-      sourcedId: "ACASESS123-ABF-0001",
+      sourcedId: UUID.uuid1,
       status: "active",
       dateLastModified: DateTime.utc_now,
       metadata: %{"ncesId" => "45454353453", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},

@@ -19,7 +19,7 @@ defmodule ExOneroster.AcademicSessionsTest do
     test "create_academic_session/1 with valid data creates a academic_session" do
       academic_session_params = build(:academic_session)
 
-      assert {:ok, %AcademicSession{} = academic_session} = AcademicSessions.create_academic_session(params_for(:academic_session, dateLastModified: academic_session_params.dateLastModified))
+      assert {:ok, %AcademicSession{} = academic_session} = AcademicSessions.create_academic_session(params_for(:academic_session, dateLastModified: academic_session_params.dateLastModified, sourcedId: academic_session_params.sourcedId))
       assert academic_session.dateLastModified == academic_session_params.dateLastModified
       assert academic_session.endDate == Date.from_iso8601!(academic_session_params.endDate)
       assert academic_session.metadata == academic_session_params.metadata

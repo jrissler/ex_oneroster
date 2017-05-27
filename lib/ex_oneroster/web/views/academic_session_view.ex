@@ -24,3 +24,34 @@ defmodule ExOneroster.Web.AcademicSessionView do
       schoolYear: academic_session.schoolYear}
   end
 end
+
+# 1.1 spec response
+# {
+#   "academicSession": {
+#     "sourcedId": "<sourcedid of this academicSession (term)>",
+#     "status": "active | tobedeleted",
+#     "dateLastModified": "<date this object was last modified>",
+#     "title": "<name of the academicSession (term)>",
+#     "startDate": "<academicSession (term) start date>",
+#     "endDate": "<academicSession (term) end date>",
+#     "type": "term",
+#     "parent": {
+#       "href": "<href of the parent for this academic session>",
+#       "sourcedId": "<sourcedId of the parent for this session>",
+#       "type": "academicSession"
+#     },
+#     "children": [
+#       {
+#         "href": "<href of 1st child for this academic session>",
+#         "sourcedId": "<sourcedId of the 1st child for this session>",
+#         "type": "academicSession"
+#       },
+#       {
+#         "href": "<href of 2nd child for this academic session>",
+#         "sourcedId": "<sourcedId of the 1st child for this session>",
+#         "type": "academicSession"
+#       }
+#     ],
+#     "schoolYear": "2015"
+#   }
+# }

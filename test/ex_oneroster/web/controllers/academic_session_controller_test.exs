@@ -13,7 +13,7 @@ defmodule ExOneroster.Web.AcademicSessionControllerTest do
   test "creates academic_session and renders academic_session when data is valid", %{conn: conn} do
     academic_session_params = build(:academic_session)
 
-    conn = post conn, academic_session_path(conn, :create), academic_session: params_for(:academic_session, dateLastModified: academic_session_params.dateLastModified)
+    conn = post conn, academic_session_path(conn, :create), academic_session: params_for(:academic_session, dateLastModified: academic_session_params.dateLastModified, sourcedId: academic_session_params.sourcedId)
     assert %{"id" => id} = json_response(conn, 201)["data"]
 
     conn = get conn, academic_session_path(conn, :show, id)
@@ -39,7 +39,7 @@ defmodule ExOneroster.Web.AcademicSessionControllerTest do
   test "updates chosen academic_session and renders academic_session when data is valid", %{conn: conn} do
     academic_session = insert(:academic_session)
 
-    conn = put conn, academic_session_path(conn, :update, academic_session), academic_session: params_for(:academic_session, title: "Bond... James Bond", dateLastModified: academic_session.dateLastModified)
+    conn = put conn, academic_session_path(conn, :update, academic_session), academic_session: params_for(:academic_session, title: "Bond... James Bond", dateLastModified: academic_session.dateLastModified, sourcedId: academic_session.sourcedId)
     assert %{"id" => id} = json_response(conn, 200)["data"]
 
     conn = get conn, academic_session_path(conn, :show, id)
