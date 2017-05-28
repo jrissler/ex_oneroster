@@ -34,45 +34,59 @@ end
 
 # 1.1 spec response
 # {
-#   "course": {
-#     "sourcedId": "<sourcedId of the course>",
+#   "class": {
+#     "sourcedId": "<sourcedId of this class >",
 #     "status": "active | tobedeleted",
-#     "dateLastModified": "<date this object was last modified>",
-#     "metadata": {
-#       "duration": "<how long this course takes to teach>"
-#     },
-#     "title": "<title of the course>",
-#     "schoolYear": {
-#       "href": "<href of the academicSession (school year) related to this course>",
-#       "sourcedId": "<sourcedId of the academicSession (school year) related to this course>",
-#       "type": "academicSession"
-#     },
-#     "courseCode": "<course code for the course>",
+#     "dateLastModified": "<date this class was last modified>",
+#     "title": "<name of this class>",
+#     "classCode": "<human readable code for this class>",
+#     "classType": "homeroom | scheduled",
+#     "location": "<physical location of this class>",
 #     "grades": [
-#       "<the grade for this course>"
+#       "<grade of this class>"
 #     ],
 #     "subjects": [
-#       "1st subject",
+#       "1st subject ",
 #       "2nd subject",
-#       "n'th subject"
+#       "nth subject"
 #     ],
-#     "org": {
-#       "href": "<href of the org related to this course>",
-#       "sourcedId": "<sourcedId of the org related to this course>",
+#     "course": {
+#       "href": "<href of the course that this is a class of>",
+#       "sourcedId": "<sourcedId of the course that this is a class of>",
+#       "type": "course"
+#     },
+#     "school": {
+#       "href": "<href of the school that this is a class of>",
+#       "sourcedId": "<sourcedId of the school that this is a class of>",
 #       "type": "org"
 #     },
+#     "terms": [
+#       {
+#         "href": "<href of the first term that this class is in>",
+#         "sourcedId": "<sourcedId of the 1st term that this class is in>",
+#         "type": "academicSession"
+#       },
+#       {
+#         "href": "<href of the first term that this class is in>",
+#         "sourcedId": "<sourcedId of the 1st term that this class is in>",
+#         "type": "academicSession"
+#       }
+#     ],
 #     "subjectCodes": [
 #       "1st subject code",
 #       "n'th subject code"
 #     ],
+#     "periods": [
+#       "<List of associated periods that class is taught>"
+#     ],
 #     "resources": [
 #       {
-#         "href": "<href of the resource related to this course>",
+#         "href": "<href of the resource related to this class>",
 #         "sourcedId": "<sourcedId of the 1st resource>",
 #         "type": "resource"
 #       },
 #       {
-#         "href": "<href of the resource related to this course>",
+#         "href": "<href of the resource related to this class>",
 #         "sourcedId": "<sourcedId of the nth resource>",
 #         "type": "resource"
 #       }
