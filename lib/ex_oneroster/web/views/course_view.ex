@@ -47,28 +47,12 @@ end
 #     "subjects": [
 #       "1st subject",
 #       "2nd subject",
-#       "n'th subject"
+#       "nth subject"
 #     ],
 #     "org": {
 #       "href": "<href of the org related to this course>",
 #       "sourcedId": "<sourcedId of the org related to this course>",
 #       "type": "org"
-#     },
-#     "subjectCodes": [
-#       "1st subject code",
-#       "n'th subject code"
-#     ],
-#     "resources": [
-#       {
-#         "href": "<href of the resource related to this course>",
-#         "sourcedId": "<sourcedId of the 1st resource>",
-#         "type": "resource"
-#       },
-#       {
-#         "href": "<href of the resource related to this course>",
-#         "sourcedId": "<sourcedId of the nth resource>",
-#         "type": "resource"
-#       }
-#     ]
+#     }
 #   }
 # }
