@@ -31,3 +31,25 @@ defmodule ExOneroster.Web.DemographicView do
       publicSchoolResidenceStatus: demographic.publicSchoolResidenceStatus}
   end
 end
+
+# 1.1 spec response
+# {
+#   "demographics": {
+#     "sourcedId": "<sourcedid of this demographics record (same as user referenced)>",
+#     "status": "active | tobedeleted",
+#     "dateLastModified": "<date these demographics were last modified>",
+#     "birthdate": "<value> (e.g. 1980-01-01)",
+#     "sex": "<value> (e.g. Male)",
+#     "americanIndianOrAlaskaNative": "<value> (e.g. false)",
+#     "asian": "<value> (e.g. false)",
+#     "blackOrAfricanAmerican": "<value> (e.g. true)",
+#     "nativeHawaiianOrOtherPacificIslander": "<value>",
+#     "white": "<value>",
+#     "demographicRaceTwoOrMoreRaces": "<value>",
+#     "hispanicOrLatinoEthnicity": "<value>",
+#     "countryOfBirthCode": "<value> (e.g. US)",
+#     "stateOfBirthAbbreviation": "<value> (e.g. NY)",
+#     "cityOfBirth": "<value> (e.g. New York)",
+#     "publicSchoolResidenceStatus": "<value> (e.g. 01652)"
+#   }
+# }

@@ -25,3 +25,31 @@ defmodule ExOneroster.Web.EnrollmentView do
       endDate: enrollment.endDate}
   end
 end
+
+# 1.1 spec response
+# {
+#   "enrollment": {
+#     "sourcedId": "<sourced id of this enrollment>",
+#     "status": "<status of this enrollment>",
+#     "dateLastModified": "<date this enrollment was last modified>",
+#     "role": "teacher | student | parent | guardian | relative | aide | administrator | proctor",
+#     "primary": "true | false",
+#     "user": {
+#       "href": "<href of the user for this enrollment>",
+#       "sourcedId": "<sourcedId of the user for this enrollment>",
+#       "type": "user"
+#     },
+#     "class": {
+#       "href": "<href of the class for this enrollment>",
+#       "sourcedId": "<sourcedId of the class for this enrollment>",
+#       "type": "class"
+#     },
+#     "school": {
+#       "href": "<href of the school for this enrollment>",
+#       "sourcedId": "<sourcedId of the school for this enrollment>",
+#       "type": "org"
+#     },
+#     "beginDate": "<Enrollment start date> (e.g. 2015-01-01Z)",
+#     "endDate": "<Enrollment end date> (e.g. 2015-12-31Z)"
+#   }
+# }
