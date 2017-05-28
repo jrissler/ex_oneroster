@@ -3,15 +3,19 @@ defmodule ExOneroster.Web.AcademicSessionView do
   alias ExOneroster.Web.AcademicSessionView
 
   def render("index.json", %{academic_sessions: academic_sessions}) do
-    %{data: render_many(academic_sessions, AcademicSessionView, "academic_session.json")}
+    %{academicSession: render_many(academic_sessions, AcademicSessionView, "academic_session.json")}
   end
 
   def render("show.json", %{academic_session: academic_session}) do
-    %{data: render_one(academic_session, AcademicSessionView, "academic_session.json")}
+    %{academicSession: render_one(academic_session, AcademicSessionView, "academic_session.json")}
   end
 
+  # TODO: serializer could be improvement
   def render("academic_session.json", %{academic_session: academic_session}) do
-    %{id: academic_session.id,
+    parent = if academic_session.parent, do: %{href: academic_session_url(ExOneroster.Web.Endpoint, :show, academic_session.parent.id), sourcedId: academic_session.parent.sourcedId, type: academic_session.parent.type}, else: %{}
+    children = academic_session.children |> Enum.reduce([], fn(child, list) -> [%{href: academic_session_url(ExOneroster.Web.Endpoint, :show, child.id), sourcedId: child.sourcedId, type: child.type} | list] end) |> Enum.reverse
+    %{
+      id: academic_session.id,
       sourcedId: academic_session.sourcedId,
       status: academic_session.status,
       dateLastModified: academic_session.dateLastModified,
@@ -20,8 +24,10 @@ defmodule ExOneroster.Web.AcademicSessionView do
       startDate: academic_session.startDate,
       endDate: academic_session.endDate,
       type: academic_session.type,
-      parent_id: academic_session.parent_id,
-      schoolYear: academic_session.schoolYear}
+      schoolYear: academic_session.schoolYear,
+      parent: parent,
+      children: children
+    }
   end
 end
 

@@ -17,6 +17,5 @@ defmodule ExOneroster.Repo.Migrations.CreateExOneroster.AcademicSessions.Academi
       timestamps()
     end
     create unique_index(:academic_sessions, [:sourcedId])
-    create unique_index(:academic_sessions, [:parent_id])
   end
 end

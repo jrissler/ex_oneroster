@@ -16,6 +16,26 @@ defmodule ExOneroster.AcademicSessionsTest do
       assert AcademicSessions.get_academic_session!(academic_session.id) == academic_session
     end
 
+    test "get_academic_session!/1 returns parent with child" do
+      only_child = base_setup()[:parent_academic_session]
+      academic_session = AcademicSessions.get_academic_session!(only_child.id)
+
+      assert length(academic_session.children) == 1
+    end
+
+    test "get_academic_session!/1 returns parent with parent and children" do
+      data = base_setup()
+      academic_session = AcademicSessions.get_academic_session!(data[:sub_child_academic_session].id)
+
+      assert length(academic_session.children) == 2
+      assert academic_session.parent != nil
+    end
+
+    test "get_academic_session!/1 with children returns the academic_session with given id" do
+      academic_session = insert(:academic_session)
+      assert AcademicSessions.get_academic_session!(academic_session.id) == academic_session
+    end
+
     test "create_academic_session/1 with valid data creates a academic_session" do
       academic_session_params = build(:academic_session)
 
@@ -30,6 +50,8 @@ defmodule ExOneroster.AcademicSessionsTest do
       assert academic_session.status == academic_session_params.status
       assert academic_session.title == academic_session_params.title
       assert academic_session.type == academic_session_params.type
+      assert academic_session.parent == nil
+      assert academic_session.children == []
     end
 
     test "create_academic_session/1 with invalid data returns error changeset" do
@@ -50,6 +72,8 @@ defmodule ExOneroster.AcademicSessionsTest do
       assert academic_session.status == existing_academic_session.status
       assert academic_session.title == existing_academic_session.title
       assert academic_session.type == existing_academic_session.type
+      assert academic_session.parent == nil
+      assert academic_session.children == []
     end
 
     test "update_academic_session/2 with invalid data returns error changeset" do

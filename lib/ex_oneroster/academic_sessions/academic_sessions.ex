@@ -18,7 +18,7 @@ defmodule ExOneroster.AcademicSessions do
 
   """
   def list_academic_sessions do
-    Repo.all(AcademicSession)
+    Repo.all(AcademicSession) |> Repo.preload(:parent) |> Repo.preload(:children)
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule ExOneroster.AcademicSessions do
       ** (Ecto.NoResultsError)
 
   """
-  def get_academic_session!(id), do: Repo.get!(AcademicSession, id)
+  def get_academic_session!(id), do: Repo.get!(AcademicSession, id) |> Repo.preload(:parent) |> Repo.preload(:children)
 
   @doc """
   Creates a academic_session.
@@ -51,6 +51,8 @@ defmodule ExOneroster.AcademicSessions do
   """
   def create_academic_session(attrs \\ %{}) do
     %AcademicSession{}
+    |> Repo.preload(:parent)
+    |> Repo.preload(:children)
     |> AcademicSession.changeset(attrs)
     |> Repo.insert()
   end

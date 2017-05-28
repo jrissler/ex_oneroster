@@ -2,14 +2,20 @@ defmodule ExOneroster.Factory do
   # with Ecto
   use ExMachina.Ecto, repo: ExOneroster.Repo
 
-  # base = base_setup(insert(:org))
-  def base_setup(org) do
-    parent_academic_session = insert(:academic_session, org: org)
+  # data = base_setup
+  def base_setup do
+    top_parent_academic_session = insert(:academic_session)
+    child_with_children_academic_session = insert(:academic_session, parent_id: top_parent_academic_session.id)
     # 2 children academic sessions
-    insert(:academic_session, org: org, parent: parent_academic_session)
-    insert(:academic_session, org: org, parent: parent_academic_session)
+    sub_sub_child_academic_session_one = insert(:academic_session, parent_id: child_with_children_academic_session.id)
+    sub_sub_child_academic_session_two = insert(:academic_session, parent_id: child_with_children_academic_session.id)
 
-    %{org: org, academic_session: parent_academic_session}
+    %{
+      parent_academic_session: top_parent_academic_session,
+      sub_child_academic_session: child_with_children_academic_session,
+      sub_sub_child_academic_session_one: sub_sub_child_academic_session_one,
+      sub_sub_child_academic_session_two: sub_sub_child_academic_session_two
+    }
   end
 
   def org_factory do
@@ -36,7 +42,9 @@ defmodule ExOneroster.Factory do
       endDate: "2018-08-10",
       type: "schoolYear",
       parent_id: nil,
-      schoolYear: 2019
+      schoolYear: 2019,
+      children: [],
+      parent: nil
     }
   end
 
