@@ -46,7 +46,6 @@ defmodule ExOneroster.Web.AcademicSessionControllerTest do
     child_two = data[:sub_sub_child_academic_session_two]
 
     conn = get conn, academic_session_path(conn, :show, academic_session.id)
-    IO.inspect json_response(conn, 200)
     assert json_response(conn, 200)["academicSession"] == %{
       "id" => academic_session.id,
       "dateLastModified" => DateTime.to_iso8601(academic_session.dateLastModified),
