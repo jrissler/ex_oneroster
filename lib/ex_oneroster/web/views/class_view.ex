@@ -3,15 +3,20 @@ defmodule ExOneroster.Web.ClassView do
   alias ExOneroster.Web.ClassView
 
   def render("index.json", %{classes: classes}) do
-    %{data: render_many(classes, ClassView, "class.json")}
+    %{class: render_many(classes, ClassView, "class.json")}
   end
 
   def render("show.json", %{class: class}) do
-    %{data: render_one(class, ClassView, "class.json")}
+    %{class: render_one(class, ClassView, "class.json")}
   end
 
   def render("class.json", %{class: class}) do
-    %{id: class.id,
+    course = if class.course, do: %{href: course_url(ExOneroster.Web.Endpoint, :show, class.course.id), sourcedId: class.course.sourcedId, type: "course"}, else: %{}
+    org = if class.org, do: %{href: org_url(ExOneroster.Web.Endpoint, :show, class.org.id), sourcedId: class.org.sourcedId, type: class.org.type}, else: %{}
+    terms = class.terms |> Enum.reduce([], fn(term, list) -> [%{href: academic_session_url(ExOneroster.Web.Endpoint, :show, term.id), sourcedId: term.sourcedId, type: term.type} | list] end) |> Enum.reverse
+    # TODO: add resources
+    %{
+      id: class.id,
       sourcedId: class.sourcedId,
       status: class.status,
       dateLastModified: class.dateLastModified,
@@ -22,11 +27,11 @@ defmodule ExOneroster.Web.ClassView do
       location: class.location,
       grades: class.grades,
       subjects: class.subjects,
-      course_id: class.course_id,
-      school_id: class.school_id,
-      terms: class.terms,
       subjectCodes: class.subjectCodes,
       periods: class.periods,
+      course: course,
+      school: org,
+      terms: terms,
       resources: []
     }
   end

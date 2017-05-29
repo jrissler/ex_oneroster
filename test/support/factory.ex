@@ -13,13 +13,19 @@ defmodule ExOneroster.Factory do
     sub_sub_child_academic_session_two = insert(:academic_session, parent_id: child_with_children_academic_session.id)
 
     course = insert(:course, org_id: org.id, academic_session_id: top_parent_academic_session.id)
+    class = insert(:class, org_id: org.id, org: org, course_id: course.id, course: course)
+    term_one = insert(:term, class_id: class.id, academic_session_id: child_with_children_academic_session.id)
+    term_two = insert(:term, class_id: class.id, academic_session_id: sub_sub_child_academic_session_one.id)
     %{
       org: org,
       parent_academic_session: top_parent_academic_session,
       sub_child_academic_session: child_with_children_academic_session,
       sub_sub_child_academic_session_one: sub_sub_child_academic_session_one,
       sub_sub_child_academic_session_two: sub_sub_child_academic_session_two,
-      course: course
+      course: course,
+      class: class,
+      term_one: term_one,
+      term_two: term_two
     }
   end
 
@@ -80,11 +86,21 @@ defmodule ExOneroster.Factory do
       location: "room 19",
       grades: ["PR", "09", "10"],
       subjects: ["chemistry", "basic-chemistry", "chemistry-level-one"],
-      course_id: 1,
-      school_id: 1,
-      terms: ["45454353453-ABF-0001", "TERM123-ABF-0001"],
       subjectCodes: ["CHEM101", "CHE-A", "C-1"],
-      periods: ["1", "3", "5"]
+      periods: ["1", "3", "5"],
+      class_terms: [],
+      course_id: 1,
+      course: nil,
+      org_id: 1,
+      org: nil,
+      terms: []
+    }
+  end
+
+  def term_factory do
+    %ExOneroster.Classes.Term{
+      class_id: 1,
+      academic_session_id: 1
     }
   end
 

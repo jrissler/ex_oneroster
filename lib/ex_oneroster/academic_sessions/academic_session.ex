@@ -6,6 +6,8 @@ defmodule ExOneroster.AcademicSessions.AcademicSession do
   schema "academic_sessions" do
     belongs_to :parent, AcademicSession
     has_many :children, AcademicSession, foreign_key: :parent_id
+    has_many :class_terms, ExOneroster.Classes.Term
+    has_many :classes, through: [:class_terms, :class]
 
     field :dateLastModified, :utc_datetime
     field :endDate, :date

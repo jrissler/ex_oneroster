@@ -4,6 +4,7 @@ defmodule ExOneroster.Repo.Migrations.CreateExOneroster.Classes.Class do
   def change do
     create table(:classes) do
       add :sourcedId, :string
+      add :org_id, :integer
       add :status, :string
       add :dateLastModified, :utc_datetime
       add :metadata, :map
@@ -14,15 +15,13 @@ defmodule ExOneroster.Repo.Migrations.CreateExOneroster.Classes.Class do
       add :grades, :map
       add :subjects, :map
       add :course_id, :integer
-      add :school_id, :integer
-      add :terms, :map
       add :subjectCodes, :map
       add :periods, :map
 
       timestamps()
     end
-    create unique_index(:classes, [:sourcedId])
-    create unique_index(:classes, [:course_id])
-    create unique_index(:classes, [:school_id])
+    create index(:classes, [:sourcedId])
+    create index(:classes, [:course_id])
+    create index(:classes, [:org_id])
   end
 end

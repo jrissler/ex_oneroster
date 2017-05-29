@@ -18,7 +18,7 @@ defmodule ExOneroster.Classes do
 
   """
   def list_classes do
-    Repo.all(Class)
+    Repo.all(Class) |> Repo.preload([:org, :course, :terms])
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule ExOneroster.Classes do
       ** (Ecto.NoResultsError)
 
   """
-  def get_class!(id), do: Repo.get!(Class, id)
+  def get_class!(id), do: Repo.get!(Class, id) |> Repo.preload([:org, :course, :terms])
 
   @doc """
   Creates a class.
@@ -51,6 +51,7 @@ defmodule ExOneroster.Classes do
   """
   def create_class(attrs \\ %{}) do
     %Class{}
+    |> Repo.preload([:org, :course, :terms])
     |> Class.changeset(attrs)
     |> Repo.insert()
   end
