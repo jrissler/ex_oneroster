@@ -19,3 +19,13 @@ defmodule ExOneroster.Web.LineItemCategoryView do
       title: line_item_category.title}
   end
 end
+
+# 1.1 spec response
+# {
+#   "category": {
+#     "sourcedId": "<sourcedId of this category>",
+#     "status": "active | tobedeleted",
+#     "dateLastModified": "<date this object was last modified>",
+#     "title": "<title of this category>"
+#   }
+# }

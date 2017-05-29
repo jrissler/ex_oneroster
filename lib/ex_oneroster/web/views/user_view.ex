@@ -34,3 +34,45 @@ defmodule ExOneroster.Web.UserView do
       password: user.password}
   end
 end
+
+# 1.1 spec response
+# {
+#   "user": {
+#     "sourcedId": "<sourcedid of this user>",
+#     "status": "active | tobedeleted",
+#     "dateLastModified": "<date this user was last modified>",
+#     "username": "<username to use for this user>",
+#     "userId": "<active directory / lti user id / some other id >",
+#     "givenName": "<this user's given name>",
+#     "familyName": "<this user's family name>",
+#     "role": "teacher | student | parent | guardian | relative | aide | administrator",
+#     "identifier": "<human readable ID, such as student id>",
+#     "email": "<email address for this user>",
+#     "sms": "<sms number for this user>",
+#     "phone": "<phone number for this user>",
+#     "agents": [
+#       {
+#         "href": "href of the first agent (e.g. parent) for this user",
+#         "sourcedId": "sourcedid of the first agent for this user",
+#         "type": "user"
+#       },
+#       {
+#         "href": "href of the n'th agent for this user",
+#         "sourcedId": "sourcedid of the n'th agent for this user",
+#         "type": "user"
+#       }
+#     ],
+#     "orgs": [
+#       {
+#         "href": "<href of the 1st org to which this user is attached>",
+#         "sourcedId": "<sourcedId of the 1st org to which this user is attached>",
+#         "type": "org"
+#       },
+#       {
+#         "href": "<href of the nth org to which this user is attached>",
+#         "sourcedId": "<sourcedId of the nth org to which this user is attached>",
+#         "type": "org"
+#       }
+#     ]
+#   }
+# }

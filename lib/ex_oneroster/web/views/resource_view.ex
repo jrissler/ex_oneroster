@@ -24,3 +24,18 @@ defmodule ExOneroster.Web.ResourceView do
       applicationId: resource.applicationId}
   end
 end
+
+# 1.1 spec response
+# {
+#   "resource": {
+#     "sourcedId": "<sourcedId of the resource>",
+#     "title": "<title of the resource>",
+#     "roles": [
+#       "teacher | student | parent | guardian | relative | aide | administrator | proctor"
+#     ],
+#     "importance": "primary | secondary",
+#     "vendorResourceId": "<vendor allocated unique resource ID>",
+#     "vendorId": "<GUID of the vendor who created the resource>",
+#     "applicationId": "<GUID of the application to use the resource>"
+#   }
+# }

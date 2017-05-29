@@ -23,3 +23,32 @@ defmodule ExOneroster.Web.OrgView do
     }
   end
 end
+
+# 1.1 spec response
+# {
+#   "org": {
+#     "sourcedId": "<sourcedId of this org>",
+#     "status": "active | tobedeleted",
+#     "dateLastModified": "<date this ORG was last modified>",
+#     "name": "<name of the org>",
+#     "type": "school | local | state | national",
+#     "identifier": "<human readable identifier for this organization>",
+#     "parent": {
+#       "href": "<href to the parent org>",
+#       "sourcedId": "<sourcedId of the parent org>",
+#       "type": "org"
+#     },
+#     "children": [
+#       {
+#         "href": "<href of the first child org>",
+#         "sourcedId": "<sourcedId of the first child org>",
+#         "type": "org"
+#       },
+#       {
+#         "href": "<href of the n'th child org>",
+#         "sourcedId": "<sourcedId of the n'th child org>",
+#         "type": "org"
+#       }
+#     ]
+#   }
+# }

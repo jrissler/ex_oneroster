@@ -24,3 +24,26 @@ defmodule ExOneroster.Web.ResultView do
       comment: result.comment}
   end
 end
+
+# 1.1 spec response
+# {
+#   "result": {
+#     "sourcedId": "<sourcedid of this grade>",
+#     "status": "active | tobedeleted",
+#     "dateLastModified": "<date this result was last modified>",
+#     "lineItem": {
+#       "href": "<href to this lineItem>",
+#       "sourcedId": "<sourcedId of this lineItem>",
+#       "type": "lineItem"
+#     },
+#     "student": {
+#       "href": "<href to this student>",
+#       "sourcedId": "<sourcedId of this student>",
+#       "type": "user"
+#     },
+#     "score": "<score of this grade>",
+#     "scoreStatus": "not submitted | submitted | partially graded | fully graded | exempt",
+#     "scoreDate": "<date that this grade was assigned>",
+#     "comment": "<a comment to accompany the score>"
+#   }
+# }
