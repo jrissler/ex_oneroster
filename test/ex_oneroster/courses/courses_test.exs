@@ -7,25 +7,26 @@ defmodule ExOneroster.CoursesTest do
     alias ExOneroster.Courses.Course
 
     test "list_courses/0 returns all courses" do
-      course = insert(:course)
+      course = base_setup()[:course] |> Repo.preload(:org) |> Repo.preload(:academic_session)
       assert Courses.list_courses() == [course]
     end
 
     test "get_course!/1 returns the course with given id" do
-      course = insert(:course)
+      course = base_setup()[:course] |> Repo.preload(:org) |> Repo.preload(:academic_session)
       assert Courses.get_course!(course.id) == course
     end
 
     test "create_course/1 with valid data creates a course" do
       course_params = build(:course)
+      data = base_setup()
 
-      assert {:ok, %Course{} = course} = Courses.create_course(params_for(:course, dateLastModified: course_params.dateLastModified))
+      assert {:ok, %Course{} = course} = Courses.create_course(params_for(:course, dateLastModified: course_params.dateLastModified, sourcedId: course_params.sourcedId, org_id: data[:org].id, academic_session_id: data[:parent_academic_session].id))
       assert course.courseCode == course_params.courseCode
       assert course.dateLastModified == course_params.dateLastModified
       assert course.grades == course_params.grades
       assert course.metadata == course_params.metadata
-      assert course.organization_id == course_params.organization_id
-      assert course.academic_session_id == course_params.academic_session_id
+      assert course.org_id == data[:org].id
+      assert course.academic_session_id == data[:parent_academic_session].id
       assert course.sourcedId == course_params.sourcedId
       assert course.status == course_params.status
       assert course.subjects == course_params.subjects
@@ -37,7 +38,8 @@ defmodule ExOneroster.CoursesTest do
     end
 
     test "update_course/2 with valid data updates the course" do
-      existing_course = insert(:course)
+      data = base_setup()
+      existing_course = data[:course]
 
       assert {:ok, course} = Courses.update_course(existing_course, params_for(:course, sourcedId: "Bond..James Bond", dateLastModified: existing_course.dateLastModified))
       assert %Course{} = course
@@ -45,7 +47,7 @@ defmodule ExOneroster.CoursesTest do
       assert course.dateLastModified == existing_course.dateLastModified
       assert course.grades == existing_course.grades
       assert course.metadata == existing_course.metadata
-      assert course.organization_id == existing_course.organization_id
+      assert course.org_id == existing_course.org_id
       assert course.academic_session_id == existing_course.academic_session_id
       assert course.sourcedId == "Bond..James Bond"
       assert course.status == existing_course.status
@@ -54,7 +56,8 @@ defmodule ExOneroster.CoursesTest do
     end
 
     test "update_course/2 with invalid data returns error changeset" do
-      course = insert(:course)
+      data = base_setup()
+      course = data[:course] |> Repo.preload(:org) |> Repo.preload(:academic_session)
       assert {:error, %Ecto.Changeset{}} = Courses.update_course(course, params_for(:course, dateLastModified: "Not a date"))
       assert course == Courses.get_course!(course.id)
     end

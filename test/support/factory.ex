@@ -4,17 +4,22 @@ defmodule ExOneroster.Factory do
 
   # data = base_setup
   def base_setup do
+    org = insert(:org)
+
     top_parent_academic_session = insert(:academic_session)
     child_with_children_academic_session = insert(:academic_session, parent_id: top_parent_academic_session.id)
     # 2 children academic sessions
     sub_sub_child_academic_session_one = insert(:academic_session, parent_id: child_with_children_academic_session.id)
     sub_sub_child_academic_session_two = insert(:academic_session, parent_id: child_with_children_academic_session.id)
 
+    course = insert(:course, org_id: org.id, academic_session_id: top_parent_academic_session.id)
     %{
+      org: org,
       parent_academic_session: top_parent_academic_session,
       sub_child_academic_session: child_with_children_academic_session,
       sub_sub_child_academic_session_one: sub_sub_child_academic_session_one,
-      sub_sub_child_academic_session_two: sub_sub_child_academic_session_two
+      sub_sub_child_academic_session_two: sub_sub_child_academic_session_two,
+      course: course
     }
   end
 
@@ -50,7 +55,7 @@ defmodule ExOneroster.Factory do
 
   def course_factory do
     %ExOneroster.Courses.Course{
-      sourcedId: "COURSE123-ABF-0001",
+      sourcedId: UUID.uuid1,
       status: "active",
       dateLastModified: DateTime.utc_now,
       metadata: %{"ncesId" => "COURSE123", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
@@ -58,8 +63,8 @@ defmodule ExOneroster.Factory do
       courseCode: "CHEM101",
       grades: ["PR", "09", "10"],
       subjects: "chemistry",
-      organization_id: 1,
-      academic_session_id: 1
+      org_id: nil,
+      academic_session_id: nil
     }
   end
 

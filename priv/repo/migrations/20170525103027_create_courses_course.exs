@@ -11,13 +11,13 @@ defmodule ExOneroster.Repo.Migrations.CreateExOneroster.Courses.Course do
       add :courseCode, :string
       add :grades, :map
       add :subjects, :string
-      add :organization_id, :integer
+      add :org_id, :integer
       add :academic_session_id, :integer
 
       timestamps()
     end
-    create unique_index(:courses, [:sourcedId])
-    create unique_index(:courses, [:organization_id])
-    create unique_index(:courses, [:academic_session_id])
+    create index(:courses, [:sourcedId])
+    create index(:courses, [:org_id])
+    create index(:courses, [:academic_session_id])
   end
 end

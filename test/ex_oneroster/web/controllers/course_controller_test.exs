@@ -7,24 +7,33 @@ defmodule ExOneroster.Web.CourseControllerTest do
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, course_path(conn, :index)
-    assert json_response(conn, 200)["data"] == []
+    assert json_response(conn, 200)["course"] == []
   end
 
   test "creates course and renders course when data is valid", %{conn: conn} do
     course_params = build(:course)
+    data = base_setup()
 
-    conn = post conn, course_path(conn, :create), course: params_for(:course, dateLastModified: course_params.dateLastModified)
-    assert %{"id" => id} = json_response(conn, 201)["data"]
+    conn = post conn, course_path(conn, :create), course: params_for(:course, sourcedId: course_params.sourcedId, dateLastModified: course_params.dateLastModified, org_id: data[:org].id, academic_session_id: data[:parent_academic_session].id)
+    assert %{"id" => id} = json_response(conn, 201)["course"]
 
     conn = get conn, course_path(conn, :show, id)
-    assert json_response(conn, 200)["data"] == %{
+    assert json_response(conn, 200)["course"] == %{
       "id" => id,
       "courseCode" => course_params.courseCode,
       "dateLastModified" => DateTime.to_iso8601(course_params.dateLastModified),
       "grades" => course_params.grades,
       "metadata" => course_params.metadata,
-      "organization_id" => course_params.organization_id,
-      "schoolYear" => course_params.academic_session_id,
+      "org" => %{
+        "href" => org_url(ExOneroster.Web.Endpoint, :show, data[:org].id),
+        "sourcedId" => data[:org].sourcedId,
+        "type" => data[:org].type
+      },
+      "schoolYear" => %{
+        "href" => academic_session_url(ExOneroster.Web.Endpoint, :show, data[:parent_academic_session].id),
+        "sourcedId" => data[:parent_academic_session].sourcedId,
+        "type" => data[:parent_academic_session].type
+      },
       "sourcedId" => course_params.sourcedId,
       "status" => course_params.status,
       "subjects" => course_params.subjects,
@@ -38,20 +47,29 @@ defmodule ExOneroster.Web.CourseControllerTest do
   end
 
   test "updates chosen course and renders course when data is valid", %{conn: conn} do
-    course = insert(:course)
+    data = base_setup()
+    course = data[:course]
 
-    conn = put conn, course_path(conn, :update, course), course: params_for(:course, title: "Bond... James Bond", dateLastModified: course.dateLastModified)
-    assert %{"id" => id} = json_response(conn, 200)["data"]
+    conn = put conn, course_path(conn, :update, course), course: params_for(:course, title: "Bond... James Bond", dateLastModified: course.dateLastModified, sourcedId: course.sourcedId)
+    assert %{"id" => id} = json_response(conn, 200)["course"]
 
     conn = get conn, course_path(conn, :show, id)
-    assert json_response(conn, 200)["data"] == %{
+    assert json_response(conn, 200)["course"] == %{
       "id" => id,
       "courseCode" => course.courseCode,
       "dateLastModified" => DateTime.to_iso8601(course.dateLastModified),
       "grades" => course.grades,
       "metadata" => course.metadata,
-      "organization_id" => course.organization_id,
-      "schoolYear" => course.academic_session_id,
+      "org" => %{
+        "href" => org_url(ExOneroster.Web.Endpoint, :show, data[:org].id),
+        "sourcedId" => data[:org].sourcedId,
+        "type" => data[:org].type
+      },
+      "schoolYear" => %{
+        "href" => academic_session_url(ExOneroster.Web.Endpoint, :show, data[:parent_academic_session].id),
+        "sourcedId" => data[:parent_academic_session].sourcedId,
+        "type" => data[:parent_academic_session].type
+      },
       "sourcedId" => course.sourcedId,
       "status" => course.status,
       "subjects" => course.subjects,

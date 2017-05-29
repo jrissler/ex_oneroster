@@ -3,25 +3,28 @@ defmodule ExOneroster.Web.CourseView do
   alias ExOneroster.Web.CourseView
 
   def render("index.json", %{courses: courses}) do
-    %{data: render_many(courses, CourseView, "course.json")}
+    %{course: render_many(courses, CourseView, "course.json")}
   end
 
   def render("show.json", %{course: course}) do
-    %{data: render_one(course, CourseView, "course.json")}
+    %{course: render_one(course, CourseView, "course.json")}
   end
 
   def render("course.json", %{course: course}) do
+    academic_session = if course.academic_session, do: %{href: academic_session_url(ExOneroster.Web.Endpoint, :show, course.academic_session.id), sourcedId: course.academic_session.sourcedId, type: course.academic_session.type}, else: %{}
+    org = if course.org, do: %{href: org_url(ExOneroster.Web.Endpoint, :show, course.org.id), sourcedId: course.org.sourcedId, type: course.org.type}, else: %{}
+
     %{id: course.id,
       sourcedId: course.sourcedId,
       status: course.status,
       dateLastModified: course.dateLastModified,
       metadata: course.metadata,
       title: course.title,
-      schoolYear: course.academic_session_id,
+      schoolYear: academic_session,
       courseCode: course.courseCode,
       grades: course.grades,
       subjects: course.subjects,
-      organization_id: course.organization_id}
+      org: org}
   end
 end
 
