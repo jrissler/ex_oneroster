@@ -1,4 +1,7 @@
 {
+  "custom_stop_words": [
+    "schema"
+  ],
   "skip_files": [
     "lib/ex_oneroster/repo.ex",
     "lib/ex_oneroster/web/channels/user_socket.ex",
