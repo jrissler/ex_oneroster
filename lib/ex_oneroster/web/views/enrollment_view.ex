@@ -11,7 +11,8 @@ defmodule ExOneroster.Web.EnrollmentView do
   end
 
   def render("enrollment.json", %{enrollment: enrollment}) do
-    %{id: enrollment.id,
+    %{
+      id: enrollment.id,
       sourcedId: enrollment.sourcedId,
       status: enrollment.status,
       dateLastModified: enrollment.dateLastModified,
@@ -22,7 +23,8 @@ defmodule ExOneroster.Web.EnrollmentView do
       role: enrollment.role,
       primary: enrollment.primary,
       beginDate: enrollment.beginDate,
-      endDate: enrollment.endDate}
+      endDate: enrollment.endDate
+    }
   end
 end
 

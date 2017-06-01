@@ -14,7 +14,8 @@ defmodule ExOneroster.Web.CourseView do
     academic_session = if course.academic_session, do: %{href: academic_session_url(ExOneroster.Web.Endpoint, :show, course.academic_session.id), sourcedId: course.academic_session.sourcedId, type: course.academic_session.type}, else: %{}
     org = if course.org, do: %{href: org_url(ExOneroster.Web.Endpoint, :show, course.org.id), sourcedId: course.org.sourcedId, type: course.org.type}, else: %{}
 
-    %{id: course.id,
+    %{
+      id: course.id,
       sourcedId: course.sourcedId,
       status: course.status,
       dateLastModified: course.dateLastModified,
@@ -24,7 +25,8 @@ defmodule ExOneroster.Web.CourseView do
       courseCode: course.courseCode,
       grades: course.grades,
       subjects: course.subjects,
-      org: org}
+      org: org
+    }
   end
 end
 

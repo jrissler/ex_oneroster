@@ -11,7 +11,8 @@ defmodule ExOneroster.Web.ResourceView do
   end
 
   def render("resource.json", %{resource: resource}) do
-    %{id: resource.id,
+    %{
+      id: resource.id,
       sourcedId: resource.sourcedId,
       status: resource.status,
       dateLastModified: resource.dateLastModified,
@@ -21,7 +22,8 @@ defmodule ExOneroster.Web.ResourceView do
       importance: resource.importance,
       vendorResourceId: resource.vendorResourceId,
       vendorId: resource.vendorId,
-      applicationId: resource.applicationId}
+      applicationId: resource.applicationId
+    }
   end
 end
 

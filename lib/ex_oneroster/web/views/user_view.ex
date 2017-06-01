@@ -11,7 +11,8 @@ defmodule ExOneroster.Web.UserView do
   end
 
   def render("user.json", %{user: user}) do
-    %{id: user.id,
+    %{
+      id: user.id,
       sourcedId: user.sourcedId,
       status: user.status,
       dateLastModified: user.dateLastModified,
@@ -31,7 +32,8 @@ defmodule ExOneroster.Web.UserView do
       agents: user.agents,
       orgs: user.orgs,
       grades: user.grades,
-      password: user.password}
+      password: user.password
+    }
   end
 end
 

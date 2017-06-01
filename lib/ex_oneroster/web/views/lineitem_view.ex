@@ -11,7 +11,8 @@ defmodule ExOneroster.Web.LineitemView do
   end
 
   def render("lineitem.json", %{lineitem: lineitem}) do
-    %{id: lineitem.id,
+    %{
+      id: lineitem.id,
       sourcedId: lineitem.sourcedId,
       status: lineitem.status,
       dateLastModified: lineitem.dateLastModified,
@@ -24,7 +25,8 @@ defmodule ExOneroster.Web.LineitemView do
       category: lineitem.category,
       gradingPeriod: lineitem.gradingPeriod,
       resultValueMin: lineitem.resultValueMin,
-      resultValueMax: lineitem.resultValueMax}
+      resultValueMax: lineitem.resultValueMax
+    }
   end
 end
 

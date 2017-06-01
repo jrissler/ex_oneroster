@@ -11,7 +11,8 @@ defmodule ExOneroster.Web.DemographicView do
   end
 
   def render("demographic.json", %{demographic: demographic}) do
-    %{id: demographic.id,
+    %{
+      id: demographic.id,
       sourcedId: demographic.sourcedId,
       status: demographic.status,
       dateLastModified: demographic.dateLastModified,
@@ -28,7 +29,8 @@ defmodule ExOneroster.Web.DemographicView do
       countryOfBirthCode: demographic.countryOfBirthCode,
       stateOfBirthAbbreviation: demographic.stateOfBirthAbbreviation,
       cityOfBirth: demographic.cityOfBirth,
-      publicSchoolResidenceStatus: demographic.publicSchoolResidenceStatus}
+      publicSchoolResidenceStatus: demographic.publicSchoolResidenceStatus
+    }
   end
 end
 

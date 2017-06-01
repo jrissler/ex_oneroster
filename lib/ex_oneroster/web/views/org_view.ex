@@ -11,7 +11,8 @@ defmodule ExOneroster.Web.OrgView do
   end
 
   def render("org.json", %{org: org}) do
-    %{id: org.id,
+    %{
+      id: org.id,
       sourcedId: org.sourcedId,
       status: org.status,
       dateLastModified: org.dateLastModified,

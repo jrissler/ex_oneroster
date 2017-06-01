@@ -11,7 +11,8 @@ defmodule ExOneroster.Web.ResultView do
   end
 
   def render("result.json", %{result: result}) do
-    %{id: result.id,
+    %{
+      id: result.id,
       sourcedId: result.sourcedId,
       status: result.status,
       dateLastModified: result.dateLastModified,
@@ -21,7 +22,8 @@ defmodule ExOneroster.Web.ResultView do
       scoreStatus: result.scoreStatus,
       score: result.score,
       scoreDate: result.scoreDate,
-      comment: result.comment}
+      comment: result.comment
+    }
   end
 end
 
