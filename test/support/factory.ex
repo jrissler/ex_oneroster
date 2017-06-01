@@ -5,6 +5,9 @@ defmodule ExOneroster.Factory do
   # data = base_setup
   def base_setup do
     org = insert(:org)
+    child_org = insert(:org, parent_id: org.id)
+    grandchild_org_one = insert(:org, parent_id: child_org.id)
+    grandchild_org_two = insert(:org, parent_id: child_org.id)
 
     top_parent_academic_session = insert(:academic_session)
     child_with_children_academic_session = insert(:academic_session, parent_id: top_parent_academic_session.id)
@@ -18,6 +21,9 @@ defmodule ExOneroster.Factory do
     term_two = insert(:term, class_id: class.id, academic_session_id: sub_sub_child_academic_session_one.id)
     %{
       org: org,
+      child_org: child_org,
+      grandchild_org_one: grandchild_org_one,
+      grandchild_org_two: grandchild_org_two,
       parent_academic_session: top_parent_academic_session,
       sub_child_academic_session: child_with_children_academic_session,
       sub_sub_child_academic_session_one: sub_sub_child_academic_session_one,
@@ -32,13 +38,15 @@ defmodule ExOneroster.Factory do
   def org_factory do
     %ExOneroster.Organizations.Org{
       dateLastModified: DateTime.utc_now,
-      identifier: "IMS-HIGH-341",
+      identifier: UUID.uuid1,
       metadata: %{"ncesId" => "8892928234", "classification" => "private", "boarding" => "true", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
-      name: "IMS High",
+      name: UUID.uuid1,
       parent_id: nil,
-      sourcedId: "SCH-ABF-0001",
+      sourcedId: UUID.uuid1,
       status: "active",
-      type: "national"
+      type: "national",
+      children: [],
+      parent: nil
     }
   end
 
@@ -52,7 +60,6 @@ defmodule ExOneroster.Factory do
       startDate: "2019-06-14",
       endDate: "2018-08-10",
       type: "schoolYear",
-      parent_id: nil,
       schoolYear: 2019,
       children: [],
       parent: nil

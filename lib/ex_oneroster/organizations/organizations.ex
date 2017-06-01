@@ -18,7 +18,7 @@ defmodule ExOneroster.Organizations do
 
   """
   def list_orgs do
-    Repo.all(Org)
+    Repo.all(Org) |> Repo.preload([:parent, :children])
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule ExOneroster.Organizations do
       ** (Ecto.NoResultsError)
 
   """
-  def get_org!(id), do: Repo.get!(Org, id)
+  def get_org!(id), do: Repo.get!(Org, id) |> Repo.preload([:parent, :children])
 
   @doc """
   Creates a org.
@@ -51,6 +51,7 @@ defmodule ExOneroster.Organizations do
   """
   def create_org(attrs \\ %{}) do
     %Org{}
+    |> Repo.preload([:parent, :children])
     |> Org.changeset(attrs)
     |> Repo.insert()
   end

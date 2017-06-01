@@ -5,11 +5,13 @@ defmodule ExOneroster.Organizations.Org do
 
 
   schema "organizations" do
+    belongs_to :parent, Org
+    has_many :children, Org, foreign_key: :parent_id
+
     field :dateLastModified, :utc_datetime
     field :identifier, :string
     field :metadata, :map
     field :name, :string
-    field :parent_id, :integer
     field :sourcedId, :string
     field :status, :string
     field :type, :string

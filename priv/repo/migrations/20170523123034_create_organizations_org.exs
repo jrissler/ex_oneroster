@@ -14,7 +14,7 @@ defmodule ExOneroster.Repo.Migrations.CreateExOneroster.Organizations.Org do
 
       timestamps()
     end
-    create unique_index(:organizations, [:sourcedId])
-    create unique_index(:organizations, [:parent_id])
+    create index(:organizations, [:sourcedId])
+    create index(:organizations, [:parent_id])
   end
 end

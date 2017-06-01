@@ -3,14 +3,16 @@ defmodule ExOneroster.Web.OrgView do
   alias ExOneroster.Web.OrgView
 
   def render("index.json", %{orgs: orgs}) do
-    %{data: render_many(orgs, OrgView, "org.json")}
+    %{org: render_many(orgs, OrgView, "org.json")}
   end
 
   def render("show.json", %{org: org}) do
-    %{data: render_one(org, OrgView, "org.json")}
+    %{org: render_one(org, OrgView, "org.json")}
   end
 
   def render("org.json", %{org: org}) do
+    parent = if org.parent, do: %{href: org_url(ExOneroster.Web.Endpoint, :show, org.parent.id), sourcedId: org.parent.sourcedId, type: org.parent.type}, else: %{}
+    children = org.children |> Enum.reduce([], fn(child, list) -> [%{href: org_url(ExOneroster.Web.Endpoint, :show, child.id), sourcedId: child.sourcedId, type: child.type} | list] end) |> Enum.reverse
     %{
       id: org.id,
       sourcedId: org.sourcedId,
@@ -20,7 +22,8 @@ defmodule ExOneroster.Web.OrgView do
       name: org.name,
       type: org.type,
       identifier: org.identifier,
-      parent_id: org.parent_id
+      parent: parent,
+      children: children
     }
   end
 end
