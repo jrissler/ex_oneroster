@@ -44,10 +44,16 @@ end
 #     "status": "active | tobedeleted",
 #     "dateLastModified": "<date this user was last modified>",
 #     "username": "<username to use for this user>",
-#     "userId": "<active directory / lti user id / some other id >",
+#     "userIds": [
+#       {
+#         "type": "<Type of identifier>",
+#         "identifier": "<active directory/lti user id/some other id >"
+#       }
+#     ],
 #     "givenName": "<this user's given name>",
 #     "familyName": "<this user's family name>",
-#     "role": "teacher | student | parent | guardian | relative | aide | administrator",
+#     "middleName": "name1 name2 name3",
+#     "role": "teacher | student | parent | guardian | relative | aide | administrator | proctor",
 #     "identifier": "<human readable ID, such as student id>",
 #     "email": "<email address for this user>",
 #     "sms": "<sms number for this user>",
@@ -75,6 +81,11 @@ end
 #         "sourcedId": "<sourcedId of the nth org to which this user is attached>",
 #         "type": "org"
 #       }
-#     ]
+#     ],
+#     "grades": [
+#       "1st Grade",
+#       "nth Grade"
+#     ],
+#     "password": "<Password for the user>"
 #   }
 # }
