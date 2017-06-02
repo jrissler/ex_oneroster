@@ -8,9 +8,6 @@ defmodule ExOneroster.Repo.Migrations.CreateExOneroster.Users.User do
       add :dateLastModified, :utc_datetime
       add :metadata, :map
       add :username, :string
-      add :userIds, :map
-      add :type, :string
-      add :identifier, :string
       add :enabledUser, :boolean, default: true, null: false
       add :givenName, :string
       add :familyName, :string

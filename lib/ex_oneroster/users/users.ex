@@ -18,7 +18,7 @@ defmodule ExOneroster.Users do
 
   """
   def list_users do
-    Repo.all(User)
+    Repo.all(User) |> Repo.preload(:identifiers)
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule ExOneroster.Users do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id), do: Repo.get!(User, id) |> Repo.preload(:identifiers)
 
   @doc """
   Creates a user.
@@ -51,6 +51,7 @@ defmodule ExOneroster.Users do
   """
   def create_user(attrs \\ %{}) do
     %User{}
+    |> Repo.preload(:identifiers)
     |> User.changeset(attrs)
     |> Repo.insert()
   end

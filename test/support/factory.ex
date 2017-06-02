@@ -19,6 +19,8 @@ defmodule ExOneroster.Factory do
     class = insert(:class, org_id: org.id, org: org, course_id: course.id, course: course)
     term_one = insert(:term, class_id: class.id, academic_session_id: child_with_children_academic_session.id)
     term_two = insert(:term, class_id: class.id, academic_session_id: sub_sub_child_academic_session_one.id)
+
+    user = insert(:user, identifiers: [build(:identifier), build(:identifier)])
     %{
       org: org,
       child_org: child_org,
@@ -31,7 +33,8 @@ defmodule ExOneroster.Factory do
       course: course,
       class: class,
       term_one: term_one,
-      term_two: term_two
+      term_two: term_two,
+      user: user
     }
   end
 
@@ -194,7 +197,6 @@ defmodule ExOneroster.Factory do
       familyName: "Bond",
       givenName: "James",
       grades: ["PR", "09", "10"],
-      identifier: "007",
       metadata: %{"ncesId" => "USR007", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
       middleName: "Herbert",
       orgs: ["SCH-ABF-0001"],
@@ -204,9 +206,15 @@ defmodule ExOneroster.Factory do
       sms: "1-555-cal-bond",
       sourcedId: "USR007",
       status: "active",
-      type: "LDAP",
-      userIds: ["james", "bond", "007"],
       username: "bondj"
+    }
+  end
+
+  def identifier_factory do
+    %ExOneroster.Users.Identifier{
+      user_id: 1,
+      type: "LDAP",
+      identifier: UUID.uuid1
     }
   end
 

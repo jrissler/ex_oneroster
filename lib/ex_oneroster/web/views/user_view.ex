@@ -3,14 +3,15 @@ defmodule ExOneroster.Web.UserView do
   alias ExOneroster.Web.UserView
 
   def render("index.json", %{users: users}) do
-    %{data: render_many(users, UserView, "user.json")}
+    %{user: render_many(users, UserView, "user.json")}
   end
 
   def render("show.json", %{user: user}) do
-    %{data: render_one(user, UserView, "user.json")}
+    %{user: render_one(user, UserView, "user.json")}
   end
 
   def render("user.json", %{user: user}) do
+    identifiers = user.identifiers |> Enum.reduce([], fn(identifier, list) -> [%{type: identifier.type, identifier: identifier.identifier} | list] end)
     %{
       id: user.id,
       sourcedId: user.sourcedId,
@@ -18,9 +19,6 @@ defmodule ExOneroster.Web.UserView do
       dateLastModified: user.dateLastModified,
       metadata: user.metadata,
       username: user.username,
-      userIds: user.userIds,
-      type: user.type,
-      identifier: user.identifier,
       enabledUser: user.enabledUser,
       givenName: user.givenName,
       familyName: user.familyName,
@@ -32,7 +30,8 @@ defmodule ExOneroster.Web.UserView do
       agents: user.agents,
       orgs: user.orgs,
       grades: user.grades,
-      password: user.password
+      password: user.password,
+      userIds: identifiers
     }
   end
 end
