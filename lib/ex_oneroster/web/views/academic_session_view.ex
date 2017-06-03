@@ -14,6 +14,7 @@ defmodule ExOneroster.Web.AcademicSessionView do
   def render("academic_session.json", %{academic_session: academic_session}) do
     parent = if academic_session.parent, do: %{href: academic_session_url(ExOneroster.Web.Endpoint, :show, academic_session.parent.id), sourcedId: academic_session.parent.sourcedId, type: academic_session.parent.type}, else: %{}
     children = academic_session.children |> Enum.reduce([], fn(child, list) -> [%{href: academic_session_url(ExOneroster.Web.Endpoint, :show, child.id), sourcedId: child.sourcedId, type: child.type} | list] end) |> Enum.reverse
+
     %{
       id: academic_session.id,
       sourcedId: academic_session.sourcedId,

@@ -18,7 +18,7 @@ defmodule ExOneroster.Results do
 
   """
   def list_results do
-    Repo.all(Result)
+    Repo.all(Result) |> Repo.preload([:user, :lineitem])
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule ExOneroster.Results do
       ** (Ecto.NoResultsError)
 
   """
-  def get_result!(id), do: Repo.get!(Result, id)
+  def get_result!(id), do: Repo.get!(Result, id) |> Repo.preload([:user, :lineitem])
 
   @doc """
   Creates a result.
@@ -51,6 +51,7 @@ defmodule ExOneroster.Results do
   """
   def create_result(attrs \\ %{}) do
     %Result{}
+    |> Repo.preload([:user, :lineitem])
     |> Result.changeset(attrs)
     |> Repo.insert()
   end

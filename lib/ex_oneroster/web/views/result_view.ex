@@ -3,22 +3,25 @@ defmodule ExOneroster.Web.ResultView do
   alias ExOneroster.Web.ResultView
 
   def render("index.json", %{results: results}) do
-    %{data: render_many(results, ResultView, "result.json")}
+    %{result: render_many(results, ResultView, "result.json")}
   end
 
   def render("show.json", %{result: result}) do
-    %{data: render_one(result, ResultView, "result.json")}
+    %{result: render_one(result, ResultView, "result.json")}
   end
 
   def render("result.json", %{result: result}) do
+    lineitem = if result.lineitem, do: %{href: lineitem_url(ExOneroster.Web.Endpoint, :show, result.lineitem.id), sourcedId: result.lineitem.sourcedId, type: "lineItem"}, else: %{}
+    student = if result.user, do: %{href: user_url(ExOneroster.Web.Endpoint, :show, result.user.id), sourcedId: result.user.sourcedId, type: "user"}, else: %{}
+
     %{
       id: result.id,
       sourcedId: result.sourcedId,
       status: result.status,
       dateLastModified: result.dateLastModified,
       metadata: result.metadata,
-      lineitem: result.lineitem,
-      student: result.student,
+      lineItem: lineitem,
+      student: student,
       scoreStatus: result.scoreStatus,
       score: result.score,
       scoreDate: result.scoreDate,

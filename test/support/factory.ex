@@ -34,6 +34,9 @@ defmodule ExOneroster.Factory do
     # line item, line item category
     line_item_category = insert(:lineitemcategory)
     line_item = insert(:lineitem, line_item_category_id: line_item_category.id, class_id: class.id, academic_session_id: top_parent_academic_session.id)
+
+    # result
+    result = insert(:result, lineitem_id: line_item.id, user_id: user.id)
     %{
       org: org,
       child_org: child_org,
@@ -52,7 +55,8 @@ defmodule ExOneroster.Factory do
       enrollment: enrollment,
       resource: resource,
       line_item_category: line_item_category,
-      line_item: line_item
+      line_item: line_item,
+      result: result
     }
   end
 
@@ -179,14 +183,14 @@ defmodule ExOneroster.Factory do
     %ExOneroster.Results.Result{
       comment: "Excellent",
       dateLastModified: DateTime.utc_now,
-      lineitem: "LI123-ABF-0001",
       metadata: %{"ncesId" => "RES123", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
       score: "67.0",
       scoreDate: "2017-05-26",
       scoreStatus: "fully graded",
       sourcedId: "RES123",
       status: "active",
-      student: "STU123"
+      user_id: 1,
+      lineitem_id: 1
     }
   end
 
