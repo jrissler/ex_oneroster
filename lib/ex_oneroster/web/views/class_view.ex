@@ -14,7 +14,8 @@ defmodule ExOneroster.Web.ClassView do
     course = if class.course, do: %{href: course_url(ExOneroster.Web.Endpoint, :show, class.course.id), sourcedId: class.course.sourcedId, type: "course"}, else: %{}
     org = if class.org, do: %{href: org_url(ExOneroster.Web.Endpoint, :show, class.org.id), sourcedId: class.org.sourcedId, type: class.org.type}, else: %{}
     terms = class.terms |> Enum.reduce([], fn(term, list) -> [%{href: academic_session_url(ExOneroster.Web.Endpoint, :show, term.id), sourcedId: term.sourcedId, type: term.type} | list] end) |> Enum.reverse
-    # TODO: add resources
+    resources = class.resources |> Enum.reduce([], fn(resource, list) -> [%{href: resource_url(ExOneroster.Web.Endpoint, :show, resource.id), sourcedId: resource.sourcedId, type: "resource"} | list] end) |> Enum.reverse
+
     %{
       id: class.id,
       sourcedId: class.sourcedId,
@@ -32,7 +33,7 @@ defmodule ExOneroster.Web.ClassView do
       course: course,
       school: org,
       terms: terms,
-      resources: []
+      resources: resources
     }
   end
 end

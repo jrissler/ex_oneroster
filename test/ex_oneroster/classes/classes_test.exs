@@ -7,12 +7,12 @@ defmodule ExOneroster.ClassesTest do
     alias ExOneroster.Classes.Class
 
     test "list_classes/0 returns all classes" do
-      class = insert(:class)
+      class = insert(:class) |> Repo.preload(:resources)
       assert Classes.list_classes() == [class]
     end
 
     test "get_class!/1 returns the class with given id" do
-      class = insert(:class)
+      class = insert(:class) |> Repo.preload(:resources)
       assert Classes.get_class!(class.id) == class
     end
 
@@ -60,7 +60,7 @@ defmodule ExOneroster.ClassesTest do
     end
 
     test "update_class/2 with invalid data returns error changeset" do
-      class = insert(:class)
+      class = insert(:class) |> Repo.preload([:org, :resources])
       assert {:error, %Ecto.Changeset{}} = Classes.update_class(class, params_for(:class, dateLastModified: "Not a date"))
       assert class == Classes.get_class!(class.id)
     end

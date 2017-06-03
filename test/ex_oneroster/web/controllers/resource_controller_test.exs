@@ -11,9 +11,9 @@ defmodule ExOneroster.Web.ResourceControllerTest do
   end
 
   test "creates resource and renders resource when data is valid", %{conn: conn} do
-    resource_params = build(:resource)
+    resource_params = params_for(:resource)
 
-    conn = post conn, resource_path(conn, :create), resource: params_for(:resource, dateLastModified: resource_params.dateLastModified)
+    conn = post conn, resource_path(conn, :create), resource: resource_params
     assert %{"id" => id} = json_response(conn, 201)["data"]
 
     conn = get conn, resource_path(conn, :show, id)
@@ -40,7 +40,7 @@ defmodule ExOneroster.Web.ResourceControllerTest do
   test "updates chosen resource and renders resource when data is valid", %{conn: conn} do
     resource = insert(:resource)
 
-    conn = put conn, resource_path(conn, :update, resource), resource: params_for(:resource, title: "Bond... James Bond", dateLastModified: resource.dateLastModified)
+    conn = put conn, resource_path(conn, :update, resource), resource: %{title: "Bond... James Bond"}
     assert %{"id" => id} = json_response(conn, 200)["data"]
 
     conn = get conn, resource_path(conn, :show, id)

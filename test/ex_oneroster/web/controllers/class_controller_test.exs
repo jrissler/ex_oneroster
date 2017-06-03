@@ -96,7 +96,13 @@ defmodule ExOneroster.Web.ClassControllerTest do
           "type" => data[:sub_sub_child_academic_session_one].type
         }
       ],
-      "resources" => []
+      "resources" => [
+        %{
+          "href" => resource_url(ExOneroster.Web.Endpoint, :show, data[:resource].id),
+          "sourcedId" => data[:resource].sourcedId,
+          "type" => "resource"
+        }
+      ]
     }
   end
 

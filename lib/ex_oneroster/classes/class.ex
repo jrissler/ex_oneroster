@@ -2,14 +2,17 @@ defmodule ExOneroster.Classes.Class do
   use Ecto.Schema
   import Ecto.Changeset
   alias ExOneroster.Classes.Class
+  alias ExOneroster.Classes.Term
   alias ExOneroster.Courses.Course
   alias ExOneroster.Organizations.Org
+  alias ExOneroster.Resources.Resource
 
   schema "classes" do
     belongs_to :course, Course
     belongs_to :org, Org
-    has_many :class_terms, ExOneroster.Classes.Term
+    has_many :class_terms, Term
     has_many :terms, through: [:class_terms, :academic_session]
+    has_many :resources, Resource
 
     field :classCode, :string
     field :classType, :string

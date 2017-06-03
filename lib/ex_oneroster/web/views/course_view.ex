@@ -13,6 +13,7 @@ defmodule ExOneroster.Web.CourseView do
   def render("course.json", %{course: course}) do
     academic_session = if course.academic_session, do: %{href: academic_session_url(ExOneroster.Web.Endpoint, :show, course.academic_session.id), sourcedId: course.academic_session.sourcedId, type: course.academic_session.type}, else: %{}
     org = if course.org, do: %{href: org_url(ExOneroster.Web.Endpoint, :show, course.org.id), sourcedId: course.org.sourcedId, type: course.org.type}, else: %{}
+    resources = course.resources |> Enum.reduce([], fn(resource, list) -> [%{href: resource_url(ExOneroster.Web.Endpoint, :show, resource.id), sourcedId: resource.sourcedId, type: "resource"} | list] end) |> Enum.reverse
 
     %{
       id: course.id,
@@ -25,7 +26,8 @@ defmodule ExOneroster.Web.CourseView do
       courseCode: course.courseCode,
       grades: course.grades,
       subjects: course.subjects,
-      org: org
+      org: org,
+      resources: resources
     }
   end
 end
@@ -36,6 +38,7 @@ end
 #     "sourcedId": "<sourcedId of the course>",
 #     "status": "active | tobedeleted",
 #     "dateLastModified": "<date this object was last modified>",
+#     "subjectCodes" : ["1st subject code", "n'th subject code" ],
 #     "metadata": {
 #       "duration": "<how long this course takes to teach>"
 #     },
@@ -58,6 +61,18 @@ end
 #       "href": "<href of the org related to this course>",
 #       "sourcedId": "<sourcedId of the org related to this course>",
 #       "type": "org"
-#     }
+#     },
+#     "resources": [
+#       {
+#         "href": "<href of the resource related to this class>",
+#         "sourcedId": "<sourcedId of the 1st resource>",
+#         "type": "resource"
+#       },
+#       {
+#         "href": "<href of the resource related to this class>",
+#         "sourcedId": "<sourcedId of the nth resource>",
+#         "type": "resource"
+#       }
+#     ]
 #   }
 # }

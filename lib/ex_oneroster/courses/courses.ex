@@ -18,7 +18,7 @@ defmodule ExOneroster.Courses do
 
   """
   def list_courses do
-    Repo.all(Course) |> Repo.preload(:org) |> Repo.preload(:academic_session)
+    Repo.all(Course) |> Repo.preload([:org, :academic_session, :resources])
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule ExOneroster.Courses do
       ** (Ecto.NoResultsError)
 
   """
-  def get_course!(id), do: Repo.get!(Course, id) |> Repo.preload(:org) |> Repo.preload(:academic_session)
+  def get_course!(id), do: Repo.get!(Course, id) |> Repo.preload(:org) |> Repo.preload([:org, :academic_session, :resources])
 
   @doc """
   Creates a course.
@@ -51,8 +51,7 @@ defmodule ExOneroster.Courses do
   """
   def create_course(attrs \\ %{}) do
     %Course{}
-    |> Repo.preload(:org)
-    |> Repo.preload(:academic_session)
+    |> Repo.preload([:org, :academic_session, :resources])
     |> Course.changeset(attrs)
     |> Repo.insert()
   end

@@ -11,7 +11,7 @@ defmodule ExOneroster.Web.CourseControllerTest do
   end
 
   test "creates course and renders course when data is valid", %{conn: conn} do
-    course_params = build(:course)
+    course_params = params_for(:course)
     data = base_setup()
 
     conn = post conn, course_path(conn, :create), course: params_for(:course, sourcedId: course_params.sourcedId, dateLastModified: course_params.dateLastModified, org_id: data[:org].id, academic_session_id: data[:parent_academic_session].id)
@@ -37,7 +37,8 @@ defmodule ExOneroster.Web.CourseControllerTest do
       "sourcedId" => course_params.sourcedId,
       "status" => course_params.status,
       "subjects" => course_params.subjects,
-      "title" => course_params.title
+      "title" => course_params.title,
+      "resources" => []
     }
   end
 
@@ -73,7 +74,14 @@ defmodule ExOneroster.Web.CourseControllerTest do
       "sourcedId" => course.sourcedId,
       "status" => course.status,
       "subjects" => course.subjects,
-      "title" => "Bond... James Bond"
+      "title" => "Bond... James Bond",
+      "resources" => [
+        %{
+          "href" => resource_url(ExOneroster.Web.Endpoint, :show, data[:resource].id),
+          "sourcedId" => data[:resource].sourcedId,
+          "type" => "resource"
+        }
+      ]
     }
   end
 

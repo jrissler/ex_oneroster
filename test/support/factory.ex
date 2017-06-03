@@ -24,6 +24,7 @@ defmodule ExOneroster.Factory do
     user = insert(:user, identifiers: [build(:identifier), build(:identifier)])
     insert(:agent, agent_id: agent.id, user_id: user.id)
     insert(:affiliation, org_id: org.id, user_id: user.id)
+    resource = insert(:resource, class_id: class.id, course_id: course.id)
     %{
       org: org,
       child_org: child_org,
@@ -38,7 +39,8 @@ defmodule ExOneroster.Factory do
       term_one: term_one,
       term_two: term_two,
       user: user,
-      agent: agent
+      agent: agent,
+      resource: resource
     }
   end
 
@@ -120,16 +122,16 @@ defmodule ExOneroster.Factory do
 
   def resource_factory do
     %ExOneroster.Resources.Resource{
-      applicationId: "anapp9876",
+      applicationId: UUID.uuid1,
       dateLastModified: DateTime.utc_now,
       importance: "secondary",
       metadata: %{"ncesId" => "RES123", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
       roles: ["guardian", "parent", "teacher", "relative", "aide", "administrator"],
-      sourcedId: "RESOURCE123-ABF-0001",
+      sourcedId: UUID.uuid1,
       status: "active",
       title: "Organic Chemistry",
-      vendorId: "012",
-      vendorResourceId: "345-67-543"
+      vendorId: UUID.uuid1,
+      vendorResourceId: UUID.uuid1
     }
   end
 

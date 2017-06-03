@@ -4,6 +4,8 @@ defmodule ExOneroster.Repo.Migrations.CreateExOneroster.Resources.Resource do
   def change do
     create table(:resources) do
       add :sourcedId, :string
+      add :class_id, references(:classes, on_delete: :nilify_all)
+      add :course_id, references(:courses, on_delete: :nilify_all)
       add :status, :string
       add :dateLastModified, :utc_datetime
       add :metadata, :map

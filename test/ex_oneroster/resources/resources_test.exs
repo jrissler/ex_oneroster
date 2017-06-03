@@ -17,9 +17,9 @@ defmodule ExOneroster.ResourcesTest do
     end
 
     test "create_resource/1 with valid data creates a resource" do
-      resource_params = build(:resource)
+      resource_params = params_for(:resource)
 
-      assert {:ok, %Resource{} = resource} = Resources.create_resource(params_for(:resource, dateLastModified: resource_params.dateLastModified))
+      assert {:ok, %Resource{} = resource} = Resources.create_resource(resource_params)
       assert resource.applicationId == resource_params.applicationId
       assert resource.dateLastModified == resource_params.dateLastModified
       assert resource.importance == resource_params.importance
@@ -39,7 +39,7 @@ defmodule ExOneroster.ResourcesTest do
     test "update_resource/2 with valid data updates the resource" do
       existing_resource = insert(:resource)
 
-      assert {:ok, resource} = Resources.update_resource(existing_resource, params_for(:resource, sourcedId: "Bond..James Bond", dateLastModified: existing_resource.dateLastModified))
+      assert {:ok, resource} = Resources.update_resource(existing_resource, %{sourcedId: "Bond..James Bond"})
       assert %Resource{} = resource
       assert resource.applicationId == existing_resource.applicationId
       assert resource.dateLastModified == existing_resource.dateLastModified

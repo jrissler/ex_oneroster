@@ -7,12 +7,12 @@ defmodule ExOneroster.CoursesTest do
     alias ExOneroster.Courses.Course
 
     test "list_courses/0 returns all courses" do
-      course = base_setup()[:course] |> Repo.preload(:org) |> Repo.preload(:academic_session)
+      course = base_setup()[:course] |> Repo.preload([:org, :academic_session, :resources])
       assert Courses.list_courses() == [course]
     end
 
     test "get_course!/1 returns the course with given id" do
-      course = base_setup()[:course] |> Repo.preload(:org) |> Repo.preload(:academic_session)
+      course = base_setup()[:course] |> Repo.preload([:org, :academic_session, :resources])
       assert Courses.get_course!(course.id) == course
     end
 
@@ -57,7 +57,7 @@ defmodule ExOneroster.CoursesTest do
 
     test "update_course/2 with invalid data returns error changeset" do
       data = base_setup()
-      course = data[:course] |> Repo.preload(:org) |> Repo.preload(:academic_session)
+      course = data[:course] |> Repo.preload([:org, :academic_session, :resources])
       assert {:error, %Ecto.Changeset{}} = Courses.update_course(course, params_for(:course, dateLastModified: "Not a date"))
       assert course == Courses.get_course!(course.id)
     end

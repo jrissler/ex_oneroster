@@ -4,14 +4,12 @@ defmodule ExOneroster.Courses.Course do
   alias ExOneroster.Courses.Course
   alias ExOneroster.Organizations.Org
   alias ExOneroster.AcademicSessions.AcademicSession
-
-  # belongs_to org
-  # belongs_to academic session
-  # has_many resources
+  alias ExOneroster.Resources.Resource
 
   schema "courses" do
     belongs_to :academic_session, AcademicSession
     belongs_to :org, Org
+    has_many :resources, Resource
 
     field :courseCode, :string
     field :dateLastModified, :utc_datetime
