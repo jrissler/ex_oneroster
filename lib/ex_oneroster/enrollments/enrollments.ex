@@ -18,7 +18,7 @@ defmodule ExOneroster.Enrollments do
 
   """
   def list_enrollments do
-    Repo.all(Enrollment)
+    Repo.all(Enrollment) |> Repo.preload([:user, :class, :org])
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule ExOneroster.Enrollments do
       ** (Ecto.NoResultsError)
 
   """
-  def get_enrollment!(id), do: Repo.get!(Enrollment, id)
+  def get_enrollment!(id), do: Repo.get!(Enrollment, id) |> Repo.preload([:user, :class, :org])
 
   @doc """
   Creates a enrollment.
@@ -51,6 +51,7 @@ defmodule ExOneroster.Enrollments do
   """
   def create_enrollment(attrs \\ %{}) do
     %Enrollment{}
+    |> Repo.preload([:user, :class, :org])
     |> Enrollment.changeset(attrs)
     |> Repo.insert()
   end

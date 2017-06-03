@@ -25,6 +25,7 @@ defmodule ExOneroster.Factory do
     insert(:agent, agent_id: agent.id, user_id: user.id)
     insert(:affiliation, org_id: org.id, user_id: user.id)
     resource = insert(:resource, class_id: class.id, course_id: course.id)
+    enrollment = insert(:enrollment, class_id: class.id, user_id: user.id, org_id: org.id)
     %{
       org: org,
       child_org: child_org,
@@ -40,6 +41,7 @@ defmodule ExOneroster.Factory do
       term_two: term_two,
       user: user,
       agent: agent,
+      enrollment: enrollment,
       resource: resource
     }
   end
@@ -181,16 +183,16 @@ defmodule ExOneroster.Factory do
   def enrollment_factory do
     %ExOneroster.Enrollments.Enrollment{
       beginDate: "2017-05-26",
-      class: "CLASS123-ABF-0001",
       dateLastModified: DateTime.utc_now,
       endDate: "2019-05-26",
       metadata: %{"ncesId" => "RES123", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
       primary: "US234",
       role: "student",
-      school: "SCH-ABF-0001",
       sourcedId: "ENR123",
       status: "active",
-      user: "U123"
+      org_id: 1,
+      class_id: 1,
+      user_id: 1
     }
   end
 

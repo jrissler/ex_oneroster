@@ -3,23 +3,27 @@ defmodule ExOneroster.Web.EnrollmentView do
   alias ExOneroster.Web.EnrollmentView
 
   def render("index.json", %{enrollments: enrollments}) do
-    %{data: render_many(enrollments, EnrollmentView, "enrollment.json")}
+    %{enrollment: render_many(enrollments, EnrollmentView, "enrollment.json")}
   end
 
   def render("show.json", %{enrollment: enrollment}) do
-    %{data: render_one(enrollment, EnrollmentView, "enrollment.json")}
+    %{enrollment: render_one(enrollment, EnrollmentView, "enrollment.json")}
   end
 
   def render("enrollment.json", %{enrollment: enrollment}) do
+    user = if enrollment.user, do: %{href: user_url(ExOneroster.Web.Endpoint, :show, enrollment.user.id), sourcedId: enrollment.user.sourcedId, type: "user"}, else: %{}
+    class = if enrollment.class, do: %{href: class_url(ExOneroster.Web.Endpoint, :show, enrollment.class.id), sourcedId: enrollment.class.sourcedId, type: "class"}, else: %{}
+    school = if enrollment.org, do: %{href: org_url(ExOneroster.Web.Endpoint, :show, enrollment.org.id), sourcedId: enrollment.org.sourcedId, type: "org"}, else: %{}
+
     %{
       id: enrollment.id,
       sourcedId: enrollment.sourcedId,
       status: enrollment.status,
       dateLastModified: enrollment.dateLastModified,
       metadata: enrollment.metadata,
-      user: enrollment.user,
-      class: enrollment.class,
-      school: enrollment.school,
+      user: user,
+      class: class,
+      school: school,
       role: enrollment.role,
       primary: enrollment.primary,
       beginDate: enrollment.beginDate,
