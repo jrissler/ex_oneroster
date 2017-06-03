@@ -20,7 +20,9 @@ defmodule ExOneroster.Factory do
     term_one = insert(:term, class_id: class.id, academic_session_id: child_with_children_academic_session.id)
     term_two = insert(:term, class_id: class.id, academic_session_id: sub_sub_child_academic_session_one.id)
 
+    agent = insert(:user)
     user = insert(:user, identifiers: [build(:identifier), build(:identifier)])
+    insert(:agent, agent_id: agent.id, user_id: user.id)
     %{
       org: org,
       child_org: child_org,
@@ -34,7 +36,8 @@ defmodule ExOneroster.Factory do
       class: class,
       term_one: term_one,
       term_two: term_two,
-      user: user
+      user: user,
+      agent: agent
     }
   end
 
@@ -190,7 +193,6 @@ defmodule ExOneroster.Factory do
 
   def user_factory do
     %ExOneroster.Users.User{
-      agents: ["002", "008"],
       dateLastModified: DateTime.utc_now,
       email: "007@jamesbond.org",
       enabledUser: true,
@@ -204,7 +206,7 @@ defmodule ExOneroster.Factory do
       phone: "1-555-cal-bond",
       role: "guardian",
       sms: "1-555-cal-bond",
-      sourcedId: "USR007",
+      sourcedId: UUID.uuid1,
       status: "active",
       username: "bondj"
     }
@@ -215,6 +217,13 @@ defmodule ExOneroster.Factory do
       user_id: 1,
       type: "LDAP",
       identifier: UUID.uuid1
+    }
+  end
+
+  def agent_factory do
+    %ExOneroster.Users.Agent{
+      user_id: 1,
+      agent_id: 2,
     }
   end
 

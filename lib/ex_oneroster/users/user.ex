@@ -3,11 +3,14 @@ defmodule ExOneroster.Users.User do
   import Ecto.Changeset
   alias ExOneroster.Users.User
   alias ExOneroster.Users.Identifier
+  alias ExOneroster.Users.Agent
 
   schema "users" do
     has_many :identifiers, Identifier
 
-    field :agents, {:array, :string}
+    has_many :_agents, Agent
+    has_many :agents, through: [:_agents, :agent]
+
     field :dateLastModified, :utc_datetime
     field :email, :string
     field :enabledUser, :boolean, default: true
@@ -31,7 +34,7 @@ defmodule ExOneroster.Users.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:sourcedId, :status, :dateLastModified, :metadata, :username, :enabledUser, :givenName, :familyName, :middleName, :role, :email, :sms, :phone, :agents, :orgs, :grades, :password])
-    |> validate_required([:sourcedId, :status, :dateLastModified, :metadata, :username, :enabledUser, :givenName, :familyName, :middleName, :role, :email, :sms, :phone, :agents, :orgs, :grades, :password])
+    |> cast(attrs, [:sourcedId, :status, :dateLastModified, :metadata, :username, :enabledUser, :givenName, :familyName, :middleName, :role, :email, :sms, :phone, :orgs, :grades, :password])
+    |> validate_required([:sourcedId, :status, :dateLastModified, :metadata, :username, :enabledUser, :givenName, :familyName, :middleName, :role, :email, :sms, :phone, :orgs, :grades, :password])
   end
 end

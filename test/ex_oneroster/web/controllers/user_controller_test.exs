@@ -11,15 +11,14 @@ defmodule ExOneroster.Web.UserControllerTest do
   end
 
   test "creates user and renders user when data is valid", %{conn: conn} do
-    user_params = build(:user)
+    user_params = params_for(:user)
 
-    conn = post conn, user_path(conn, :create), user: params_for(:user, dateLastModified: user_params.dateLastModified)
+    conn = post conn, user_path(conn, :create), user: user_params
     assert %{"id" => id} = json_response(conn, 201)["user"]
 
     conn = get conn, user_path(conn, :show, id)
     assert json_response(conn, 200)["user"] == %{
       "id" => id,
-      "agents" => user_params.agents,
       "dateLastModified" => DateTime.to_iso8601(user_params.dateLastModified),
       "email" => user_params.email,
       "enabledUser" => user_params.enabledUser,
@@ -36,7 +35,8 @@ defmodule ExOneroster.Web.UserControllerTest do
       "sourcedId" => user_params.sourcedId,
       "status" => user_params.status,
       "username" => user_params.username,
-      "userIds" => []
+      "userIds" => [],
+      "agents" => []
     }
   end
 
@@ -48,6 +48,7 @@ defmodule ExOneroster.Web.UserControllerTest do
   test "updates chosen user and renders user when data is valid", %{conn: conn} do
     data = base_setup()
     user = data[:user]
+    agent = data[:agent]
 
     conn = put conn, user_path(conn, :update, user), user: params_for(:user, sourcedId: "Bond... James Bond", dateLastModified: user.dateLastModified)
     assert %{"id" => id} = json_response(conn, 200)["user"]
@@ -55,7 +56,6 @@ defmodule ExOneroster.Web.UserControllerTest do
     conn = get conn, user_path(conn, :show, id)
     assert json_response(conn, 200)["user"] == %{
       "id" => id,
-      "agents" => user.agents,
       "dateLastModified" => DateTime.to_iso8601(user.dateLastModified),
       "email" => user.email,
       "enabledUser" => user.enabledUser,
@@ -81,7 +81,14 @@ defmodule ExOneroster.Web.UserControllerTest do
           "identifier" => List.last(user.identifiers).identifier,
           "type" => List.last(user.identifiers).type
         }
-      ]
+      ],
+      "agents" => [
+        %{
+            "href" => user_url(ExOneroster.Web.Endpoint, :show, agent.id),
+            "sourcedId" => agent.sourcedId,
+            "type" => "user"
+        }
+      ],
     }
   end
 

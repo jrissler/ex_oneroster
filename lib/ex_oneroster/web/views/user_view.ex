@@ -12,6 +12,8 @@ defmodule ExOneroster.Web.UserView do
 
   def render("user.json", %{user: user}) do
     identifiers = user.identifiers |> Enum.reduce([], fn(identifier, list) -> [%{type: identifier.type, identifier: identifier.identifier} | list] end)
+    agents = user.agents |> Enum.reduce([], fn(agent, list) -> [%{href: user_url(ExOneroster.Web.Endpoint, :show, agent.id), sourcedId: agent.sourcedId, type: "user"} | list] end)
+
     %{
       id: user.id,
       sourcedId: user.sourcedId,
@@ -27,7 +29,7 @@ defmodule ExOneroster.Web.UserView do
       email: user.email,
       sms: user.sms,
       phone: user.phone,
-      agents: user.agents,
+      agents: agents,
       orgs: user.orgs,
       grades: user.grades,
       password: user.password,

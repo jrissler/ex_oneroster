@@ -8,19 +8,19 @@ defmodule ExOneroster.UsersTest do
 
     test "list_users/0 returns all users" do
       user = insert(:user)
-      assert Users.list_users() == [user |> Repo.preload(:identifiers)]
+      assert Users.list_users() == [user |> Repo.preload([:identifiers, :agents])]
     end
 
     test "get_user!/1 returns the user with given id" do
       user = insert(:user)
-      assert Users.get_user!(user.id) == user |> Repo.preload(:identifiers)
+      assert Users.get_user!(user.id) == user |> Repo.preload([:identifiers, :agents])
     end
 
     test "create_user/1 with valid data creates a user" do
-      user_params = build(:user)
+      user_params = params_for(:user)
 
-      assert {:ok, %User{} = user} = Users.create_user(params_for(:user, dateLastModified: user_params.dateLastModified))
-      assert user.agents == user_params.agents
+      assert {:ok, %User{} = user} = Users.create_user(user_params)
+      assert user.agents == []
       assert user.dateLastModified == user_params.dateLastModified
       assert user.email == user_params.email
       assert user.enabledUser == user_params.enabledUser
@@ -45,11 +45,11 @@ defmodule ExOneroster.UsersTest do
     end
 
     test "update_user/2 with valid data updates the user" do
-      existing_user = insert(:user) |> Repo.preload(:identifiers)
+      existing_user = insert(:user) |> Repo.preload([:identifiers, :agents])
 
       assert {:ok, user} = Users.update_user(existing_user, params_for(:user, sourcedId: "Bond..James Bond", dateLastModified: existing_user.dateLastModified))
       assert %User{} = user
-      assert user.agents == existing_user.agents
+      assert user.agents == []
       assert user.dateLastModified == existing_user.dateLastModified
       assert user.email == existing_user.email
       assert user.enabledUser == existing_user.enabledUser
@@ -70,7 +70,7 @@ defmodule ExOneroster.UsersTest do
     end
 
     test "update_user/2 with invalid data returns error changeset" do
-      user = insert(:user) |> Repo.preload(:identifiers)
+      user = insert(:user) |> Repo.preload([:identifiers, :agents])
       assert {:error, %Ecto.Changeset{}} = Users.update_user(user, params_for(:user, dateLastModified: "Not a date"))
       assert user == Users.get_user!(user.id)
     end
