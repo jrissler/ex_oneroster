@@ -18,7 +18,7 @@ defmodule ExOneroster.Lineitems do
 
   """
   def list_lineitems do
-    Repo.all(Lineitem)
+    Repo.all(Lineitem) |> Repo.preload([:academic_session, :class, :line_item_category])
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule ExOneroster.Lineitems do
       ** (Ecto.NoResultsError)
 
   """
-  def get_lineitem!(id), do: Repo.get!(Lineitem, id)
+  def get_lineitem!(id), do: Repo.get!(Lineitem, id) |> Repo.preload([:academic_session, :class, :line_item_category])
 
   @doc """
   Creates a lineitem.
@@ -51,6 +51,7 @@ defmodule ExOneroster.Lineitems do
   """
   def create_lineitem(attrs \\ %{}) do
     %Lineitem{}
+    |> Repo.preload([:academic_session, :class, :line_item_category])
     |> Lineitem.changeset(attrs)
     |> Repo.insert()
   end

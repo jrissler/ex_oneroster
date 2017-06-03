@@ -4,28 +4,36 @@ defmodule ExOneroster.Factory do
 
   # data = base_setup
   def base_setup do
+    # orgs
     org = insert(:org)
     child_org = insert(:org, parent_id: org.id)
     grandchild_org_one = insert(:org, parent_id: child_org.id)
     grandchild_org_two = insert(:org, parent_id: child_org.id)
 
+    #academic sessions
     top_parent_academic_session = insert(:academic_session)
     child_with_children_academic_session = insert(:academic_session, parent_id: top_parent_academic_session.id)
     # 2 children academic sessions
     sub_sub_child_academic_session_one = insert(:academic_session, parent_id: child_with_children_academic_session.id)
     sub_sub_child_academic_session_two = insert(:academic_session, parent_id: child_with_children_academic_session.id)
 
+    # course/class/terms
     course = insert(:course, org_id: org.id, academic_session_id: top_parent_academic_session.id)
     class = insert(:class, org_id: org.id, org: org, course_id: course.id, course: course)
     term_one = insert(:term, class_id: class.id, academic_session_id: child_with_children_academic_session.id)
     term_two = insert(:term, class_id: class.id, academic_session_id: sub_sub_child_academic_session_one.id)
 
+    # user, agents, identifiers, resources, enrollments
     agent = insert(:user)
     user = insert(:user, identifiers: [build(:identifier), build(:identifier)])
     insert(:agent, agent_id: agent.id, user_id: user.id)
     insert(:affiliation, org_id: org.id, user_id: user.id)
     resource = insert(:resource, class_id: class.id, course_id: course.id)
     enrollment = insert(:enrollment, class_id: class.id, user_id: user.id, org_id: org.id)
+
+    # line item, line item category
+    line_item_category = insert(:lineitemcategory)
+    line_item = insert(:lineitem, line_item_category_id: line_item_category.id, class_id: class.id, academic_session_id: top_parent_academic_session.id)
     %{
       org: org,
       child_org: child_org,
@@ -42,7 +50,9 @@ defmodule ExOneroster.Factory do
       user: user,
       agent: agent,
       enrollment: enrollment,
-      resource: resource
+      resource: resource,
+      line_item_category: line_item_category,
+      line_item: line_item
     }
   end
 
@@ -140,18 +150,18 @@ defmodule ExOneroster.Factory do
   def lineitem_factory do
     %ExOneroster.Lineitems.Lineitem{
       assignDate: DateTime.utc_now,
-      category: "CAT123",
-      class: "CLASS123-ABF-0001",
       dateLastModified: DateTime.utc_now,
       description: "Simple addition test",
       dueDate: DateTime.utc_now,
-      gradingPeriod: "ACASESS123-ABF-0001",
       metadata: %{"ncesId" => "LI123", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
       resultValueMax: "10.0",
       resultValueMin: "0.0",
       sourcedId: "LI123-ABF-0001",
       status: "active",
-      title: "Math Test 1"
+      title: "Math Test 1",
+      class_id: 1,
+      line_item_category_id: 1,
+      academic_session_id: 1
     }
   end
 
