@@ -16,7 +16,6 @@ defmodule ExOneroster.Repo.Migrations.CreateExOneroster.Users.User do
       add :email, :string
       add :sms, :string
       add :phone, :string
-      add :orgs, :map
       add :grades, :map
       add :password, :string
 

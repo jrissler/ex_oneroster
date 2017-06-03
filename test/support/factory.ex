@@ -23,6 +23,7 @@ defmodule ExOneroster.Factory do
     agent = insert(:user)
     user = insert(:user, identifiers: [build(:identifier), build(:identifier)])
     insert(:agent, agent_id: agent.id, user_id: user.id)
+    insert(:affiliation, org_id: org.id, user_id: user.id)
     %{
       org: org,
       child_org: child_org,
@@ -201,7 +202,6 @@ defmodule ExOneroster.Factory do
       grades: ["PR", "09", "10"],
       metadata: %{"ncesId" => "USR007", "http://www.imsglobal.org/memberLevel" => "http://www.imsglobal.org/memberLevel/associate"},
       middleName: "Herbert",
-      orgs: ["SCH-ABF-0001"],
       password: "goldeneye",
       phone: "1-555-cal-bond",
       role: "guardian",
@@ -224,6 +224,13 @@ defmodule ExOneroster.Factory do
     %ExOneroster.Users.Agent{
       user_id: 1,
       agent_id: 2,
+    }
+  end
+
+  def affiliation_factory do
+    %ExOneroster.Users.Affiliation{
+      user_id: 1,
+      org_id: 1,
     }
   end
 

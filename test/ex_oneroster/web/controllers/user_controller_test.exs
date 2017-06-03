@@ -27,7 +27,6 @@ defmodule ExOneroster.Web.UserControllerTest do
       "grades" => user_params.grades,
       "metadata" => user_params.metadata,
       "middleName" => user_params.middleName,
-      "orgs" => user_params.orgs,
       "password" => user_params.password,
       "phone" => user_params.phone,
       "role" => user_params.role,
@@ -36,7 +35,8 @@ defmodule ExOneroster.Web.UserControllerTest do
       "status" => user_params.status,
       "username" => user_params.username,
       "userIds" => [],
-      "agents" => []
+      "agents" => [],
+      "orgs" => []
     }
   end
 
@@ -49,6 +49,7 @@ defmodule ExOneroster.Web.UserControllerTest do
     data = base_setup()
     user = data[:user]
     agent = data[:agent]
+    org = data[:org]
 
     conn = put conn, user_path(conn, :update, user), user: params_for(:user, sourcedId: "Bond... James Bond", dateLastModified: user.dateLastModified)
     assert %{"id" => id} = json_response(conn, 200)["user"]
@@ -64,7 +65,6 @@ defmodule ExOneroster.Web.UserControllerTest do
       "grades" => user.grades,
       "metadata" => user.metadata,
       "middleName" => user.middleName,
-      "orgs" => user.orgs,
       "password" => user.password,
       "phone" => user.phone,
       "role" => user.role,
@@ -89,6 +89,13 @@ defmodule ExOneroster.Web.UserControllerTest do
             "type" => "user"
         }
       ],
+      "orgs" => [
+        %{
+            "href" => org_url(ExOneroster.Web.Endpoint, :show, org.id),
+            "sourcedId" => org.sourcedId,
+            "type" => "org"
+        }
+      ]
     }
   end
 

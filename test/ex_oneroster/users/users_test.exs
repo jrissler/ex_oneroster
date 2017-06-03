@@ -8,12 +8,12 @@ defmodule ExOneroster.UsersTest do
 
     test "list_users/0 returns all users" do
       user = insert(:user)
-      assert Users.list_users() == [user |> Repo.preload([:identifiers, :agents])]
+      assert Users.list_users() == [user |> Repo.preload([:identifiers, :agents, :orgs])]
     end
 
     test "get_user!/1 returns the user with given id" do
       user = insert(:user)
-      assert Users.get_user!(user.id) == user |> Repo.preload([:identifiers, :agents])
+      assert Users.get_user!(user.id) == user |> Repo.preload([:identifiers, :agents, :orgs])
     end
 
     test "create_user/1 with valid data creates a user" do
@@ -29,7 +29,6 @@ defmodule ExOneroster.UsersTest do
       assert user.grades == user_params.grades
       assert user.metadata == user_params.metadata
       assert user.middleName == user_params.middleName
-      assert user.orgs == user_params.orgs
       assert user.password == user_params.password
       assert user.phone == user_params.phone
       assert user.role == user_params.role
@@ -38,6 +37,7 @@ defmodule ExOneroster.UsersTest do
       assert user.status == user_params.status
       assert user.username == user_params.username
       assert user.identifiers == []
+      assert user.orgs == []
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -45,7 +45,7 @@ defmodule ExOneroster.UsersTest do
     end
 
     test "update_user/2 with valid data updates the user" do
-      existing_user = insert(:user) |> Repo.preload([:identifiers, :agents])
+      existing_user = insert(:user) |> Repo.preload([:identifiers, :agents, :orgs])
 
       assert {:ok, user} = Users.update_user(existing_user, params_for(:user, sourcedId: "Bond..James Bond", dateLastModified: existing_user.dateLastModified))
       assert %User{} = user
@@ -58,7 +58,6 @@ defmodule ExOneroster.UsersTest do
       assert user.grades == existing_user.grades
       assert user.metadata == existing_user.metadata
       assert user.middleName == existing_user.middleName
-      assert user.orgs == existing_user.orgs
       assert user.password == existing_user.password
       assert user.phone == existing_user.phone
       assert user.role == existing_user.role
@@ -67,10 +66,11 @@ defmodule ExOneroster.UsersTest do
       assert user.status == existing_user.status
       assert user.username == existing_user.username
       assert user.identifiers == []
+      assert user.orgs == []
     end
 
     test "update_user/2 with invalid data returns error changeset" do
-      user = insert(:user) |> Repo.preload([:identifiers, :agents])
+      user = insert(:user) |> Repo.preload([:identifiers, :agents, :orgs])
       assert {:error, %Ecto.Changeset{}} = Users.update_user(user, params_for(:user, dateLastModified: "Not a date"))
       assert user == Users.get_user!(user.id)
     end
