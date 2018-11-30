@@ -11,6 +11,18 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
+## Automated Tests + Coverage
+
+100% coverage currently - will not accept PR's without automated tests added or updated.
+
+  * MIX_ENV=test mix coveralls.html
+
+If you are using VS Code, launch + tasks added (you will need to add your own keyboard shortcuts). Following tasks are included:
+  * mix test (run all tests)
+  * mix test file:linenumber (run single test on cursor)
+  * mix test file (run single current file)
+  * mix test file --failed (only failed tests from previous run)
+
 ## TODO
 
   * Update everything to camel case (spec's in pascal case)
