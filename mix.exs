@@ -2,17 +2,19 @@ defmodule ExOneroster.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :ex_oneroster,
-     version: "0.0.1",
-     elixir: "~> 1.7.3",
-     elixirc_paths: elixirc_paths(Mix.env),
-     compilers: [:phoenix, :gettext] ++ Mix.compilers,
-     start_permanent: Mix.env == :prod,
-     aliases: aliases(),
-     test_coverage: [tool: ExCoveralls],
-     preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
-     preferred_cli_env: [vcr: :test, "vcr.delete": :test, "vcr.check": :test, "vcr.show": :test],
-     deps: deps()]
+    [
+      app: :ex_oneroster,
+      version: "0.0.1",
+      elixir: "~> 1.7.3",
+      elixirc_paths: elixirc_paths(Mix.env),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers,
+      start_permanent: Mix.env == :prod,
+      aliases: aliases(),
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+      preferred_cli_env: [vcr: :test, "vcr.delete": :test, "vcr.check": :test, "vcr.show": :test]
+    ]
   end
 
   # Configuration for the OTP application.
@@ -32,22 +34,22 @@ defmodule ExOneroster.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.0"},
-      {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 4.0.0"},
-      {:postgrex, ">= 0.14.1"},
+      {:phoenix, "~> 1.3.4"},
+      {:phoenix_pubsub, "~> 1.1.0"},
+      {:phoenix_ecto, "~> 3.5"},
+      {:postgrex, ">= 0.13.5"},
       {:phoenix_html, "~> 2.12"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:gettext, "~> 0.11"},
+      {:phoenix_live_reload, "~> 1.1.7", only: :dev},
+      {:gettext, "~> 0.16"},
       {:cowboy, "~> 1.0"},
-      {:httpoison, "~> 0.11.2"},
+      {:httpoison, "~> 1.4.0"},
       {:poison, "~> 3.1"},
       {:uuid, "~> 1.1"},
       {:json_web_token, "~> 0.2.10"},
-      {:ex_machina, "~> 2.1", only: :test},
-      {:excoveralls, "~> 0.6.3", only: :test},
-      {:exvcr, "~> 0.8.8", only: :test},
-      {:credo, "~> 0.9.2", only: [:dev, :test], runtime: false}
+      {:ex_machina, "~> 2.2", only: :test},
+      {:excoveralls, "~> 0.10.1", only: :test},
+      {:exvcr, "~> 0.10.3", only: :test},
+      {:credo, "~> 0.10.2", only: [:dev, :test], runtime: false}
     ]
   end
 
