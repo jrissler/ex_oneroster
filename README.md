@@ -15,7 +15,7 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
 
 100% coverage currently - will not accept PR's without automated tests added or updated.
 
-  * MIX_ENV=test mix coveralls.html
+  * MIX_ENV=test mix coveralls.html (to output test coverage)
 
 If you are using VS Code, launch + tasks added (you will need to add your own keyboard shortcuts). Following tasks are included:
   * mix test (run all tests)
