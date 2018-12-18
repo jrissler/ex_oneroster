@@ -1,3 +1,5 @@
+# Now supporting this through IMS - https://github.com/IMSGlobal/ex-OR-code
+
 # ExOneroster
 
 To start your Phoenix server:
