@@ -1,4 +1,7 @@
-# Now supporting this through IMS - https://github.com/IMSGlobal/ex-OR-code
+# Now supporting this through IMS
+https://github.com/IMSGlobal/ex-OR-code
+
+This repo is being put in read-only mode now.
 
 # ExOneroster
 
